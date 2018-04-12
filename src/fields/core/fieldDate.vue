@@ -15,7 +15,7 @@
                 :label="field.label"
                 slot="activator"
                 :required="field.required"
-                :readonly="field.readonly"
+                readonly
                 :disabled="field.disabled"
                 :placeholder="field.placeholder"
                 @blur="localValue = parseDate(dateFormatted)"
@@ -23,7 +23,7 @@
                 @focus="onFocus"
                 @input="onInput"
         />
-        <v-date-picker v-model="localValue" @input="dateFormatted = formatDate($event)" no-title scrollable
+        <v-date-picker v-model="localValue" @input="setDate($event)" no-title scrollable
                        actions>
             <template slot-scope="{ save, cancel }">
                 <v-card-actions>
@@ -48,6 +48,10 @@
       }
     },
     methods: {
+      setDate(date) {
+        this.dateFormatted = this.formatDate(date)
+        this.onInput()
+      },
       formatDate (date) {
         if (!date) {
           return null
