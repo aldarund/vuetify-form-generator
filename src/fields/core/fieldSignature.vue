@@ -41,7 +41,7 @@
 </style>
 
 <script>
-  import abstractField from "../abstractField"
+  import abstractField from '../abstractField'
   import VueSignature from 'vue-signature'
 
   export default {

@@ -1,5 +1,3 @@
-import { debounce, forEach, get as objGet, isArray, isFunction, isString } from "lodash"
-
 export default {
   props: {
     field: Object,
@@ -8,7 +6,7 @@ export default {
   data () {
     return {
       localValue: this.value,
-      delay: 600,
+      delay: 600
     }
   },
   methods: {

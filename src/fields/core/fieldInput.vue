@@ -21,7 +21,7 @@
     />
 </template>
 <script>
-  import abstractField from "../abstractField"
+  import abstractField from '../abstractField'
 
   export default {
     inject: ['$validator'],
@@ -48,7 +48,6 @@
         mask: mask
       }
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>

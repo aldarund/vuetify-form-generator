@@ -36,7 +36,7 @@
     </v-menu>
 </template>
 <script>
-  import abstractField from "../abstractField"
+  import abstractField from '../abstractField'
 
   export default {
     mixins: [abstractField],
@@ -48,7 +48,7 @@
       }
     },
     methods: {
-      setDate(date) {
+      setDate (date) {
         this.dateFormatted = this.formatDate(date)
         this.onInput()
       },

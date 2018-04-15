@@ -5,10 +5,10 @@
 </template>
 
 <script>
-  import { forEach } from "lodash"
+  import { forEach } from 'lodash'
 
   let fieldComponents = {}
-  let coreFields = require.context("./fields/core", false, /^\.\/field([\w-_]+)\.vue$/)
+  let coreFields = require.context('./fields/core', false, /^\.\/field([\w-_]+)\.vue$/)
   forEach(coreFields.keys(), (key) => {
     forEach(coreFields(key).default.fieldTypes, (fieldType) => {
       fieldComponents[fieldType] = coreFields(key).default
