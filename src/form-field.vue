@@ -25,7 +25,7 @@
     methods: {
       onUpd: function (value, fieldName) {
         this.$emit('upd', value, fieldName)
-      },
+      }
     }
   }
 </script>

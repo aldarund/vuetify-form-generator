@@ -44,7 +44,7 @@
       onInput: function (value, fieldName) {
         this.model[fieldName] = value
         this.$emit('update:model', this.model)
-      },
+      }
     }
   }
 </script>
