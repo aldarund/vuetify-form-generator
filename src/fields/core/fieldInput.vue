@@ -10,10 +10,10 @@
             :name="field.name"
             :id="field.name"
             :multi-line="field.field_id === 'multi_line'"
-            v-validate="validate"
+            v-validate="field.validate"
             :data-vv-delay="delay"
             :data-vv-name="field.name"
-            :mask="mask"
+            :mask="field.mask"
             @blur="onBlur"
             @change="onChange"
             @focus="onFocus"
@@ -26,28 +26,6 @@
   export default {
     inject: ['$validator'],
     mixins: [abstractField],
-    fieldTypes: ['single_line', 'multi_line', 'unit_field', 'ssn', 'phone', 'email'],
-    data () {
-      let validate = ''
-      let mask = null
-      if (this.field.required) {
-        validate = 'required|'
-      }
-      if (this.field.field_id === 'email') {
-        validate += 'email|'
-      }
-      if (this.field.field_id === 'ssn') {
-        mask = 'social'
-      }
-      if (this.field.field_id === 'phone') {
-        mask = 'phone'
-      }
-
-      return {
-        validate: validate,
-        mask: mask
-      }
-    },
-    methods: {}
+    fieldTypes: ['single_line', 'multi_line', 'unit_field', 'ssn', 'phone', 'email']
   }
 </script>
