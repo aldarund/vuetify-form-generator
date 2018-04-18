@@ -1,14 +1,14 @@
 <template>
     <v-menu
             lazy
-            :close-on-content-click="true"
+            :close-on-content-click="false"
             v-model="menu"
             transition="scale-transition"
             offset-y
             full-width
             :nudge-right="40"
-            max-width="290px"
             min-width="290px"
+            ref="menu"
     >
         <v-text-field
                 v-model="dateFormatted"
@@ -23,32 +23,40 @@
                 @focus="onFocus"
                 @input="onInput"
         />
-        <v-date-picker v-model="localValue" @input="setDate($event)" no-title scrollable
-                       actions>
-            <template slot-scope="{ save, cancel }">
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="save">OK</v-btn>
-                </v-card-actions>
-            </template>
+        <v-date-picker v-model="localValue" ref="picker" :min="min" :max="max"
+                       @change="save"
+        >
         </v-date-picker>
     </v-menu>
 </template>
 <script>
   import abstractField from '../abstractField'
-  //  TOOD fix field. not very usable
+
   export default {
     mixins: [abstractField],
-    fieldTypes: ['date'],
+    fieldTypes: ['date_of_birth'],
     data () {
       return {
         menu: false,
         dateFormatted: null
       }
     },
+    computed: {
+      max () {
+        return this.field.min_age ? new Date(new Date().getFullYear() - this.field.min_age, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10) : null
+      },
+      min () {
+        return this.field.max_age ? new Date(new Date().getFullYear() - this.field.max_age, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10) : null
+      }
+    },
+    watch: {
+      menu (val) {
+        val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
+      }
+    },
     methods: {
-      setDate (date) {
+      save (date) {
+        this.$refs.menu.save(date)
         this.dateFormatted = this.formatDate(date)
         this.onInput()
       },
