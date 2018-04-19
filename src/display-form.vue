@@ -29,8 +29,6 @@
 
 
 <script>
-  import { find } from 'lodash'
-
   export default {
     name: 'v-display-application',
     props: {
@@ -41,7 +39,7 @@
     },
     methods: {
       getChoiceValue (field) {
-        const choice = find(field.choices, (labelValue) => {
+        const choice = field.choices.find((labelValue) => {
           return field.value === labelValue.value
         })
         if (choice) {

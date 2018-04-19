@@ -24,11 +24,10 @@
   "homepage": "https://github.com/aldarund/vuetify-form-generator#readme",
   "dependencies": {
     "vue": "^2.5.16",
-    "vuetify": "^1.0.15",
+    "vuetify": "^1.0.16",
     "vee-validate": "^2.0.6",
     "signature_pad": "^2.3.2",
-    "vue-signature": "^1.9.1",
-    "lodash": "^4.17.5"
+    "vue-signature": "^1.9.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
