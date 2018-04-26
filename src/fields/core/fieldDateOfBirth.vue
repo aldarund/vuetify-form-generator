@@ -16,6 +16,7 @@
                 slot="activator"
                 :required="field.required"
                 readonly
+                v-validate="field.validate"
                 :disabled="field.disabled"
                 :placeholder="field.placeholder"
                 @blur="localValue = parseDate(dateFormatted)"
@@ -34,6 +35,7 @@
 
   export default {
     mixins: [abstractField],
+    inject: ['$validator'],
     fieldTypes: ['date_of_birth'],
     data () {
       return {
