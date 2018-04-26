@@ -3,9 +3,12 @@
         <div v-for="section in schema">
             <v-card>
                 <v-card-title>{{section.label}}</v-card-title>
-                <div v-for="field in section.fields">
-                    <v-form-generator-field :field="field" :value="model[field.model]" @upd="onInput" v-on:increment="onInput"/>
-                </div>
+                <v-card-text>
+                    <div v-for="field in section.fields">
+                        <v-form-generator-field :field="field" :value="model[field.model]" @upd="onInput"
+                                                v-on:increment="onInput"/>
+                    </div>
+                </v-card-text>
             </v-card>
         </div>
     </div>
