@@ -5,6 +5,7 @@
             item-text="label"
             item-value="value"
             :combobox="combobox"
+            :autocomplete="autocomplete"
             :chips="combobox"
             :label="field.label"
             :required="field.required"
