@@ -5,7 +5,7 @@
             item-text="label"
             item-value="value"
             :combobox="combobox"
-            :autocomplete="autocomplete"
+            :autocomplete="field.autocomplete"
             :chips="combobox"
             :label="field.label"
             :required="field.required"
@@ -24,17 +24,17 @@
     />
 </template>
 <script>
-  import abstractField from '../abstractField'
+import abstractField from '../abstractField'
 
-  export default {
-    inject: ['$validator'],
-    mixins: [abstractField],
-    fieldTypes: ['choice', 'state', 'combobox'],
-    data () {
-      return {
-        combobox: this.field.field_id === 'combobox'
-      }
-    },
-    methods: {}
-  }
+export default {
+  inject: ['$validator'],
+  mixins: [abstractField],
+  fieldTypes: ['choice', 'state', 'combobox'],
+  data () {
+    return {
+      combobox: this.field.field_id === 'combobox'
+    }
+  },
+  methods: {}
+}
 </script>
