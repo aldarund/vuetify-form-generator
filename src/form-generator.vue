@@ -15,39 +15,39 @@
 </template>
 
 <script>
-  export default {
-    name: 'v-form-generator',
-    props: {
-      'model': Object,
-      'schema': Array,
-      'valid': Boolean
+export default {
+  name: 'v-form-generator',
+  props: {
+    'model': Object,
+    'schema': Array,
+    'valid': Boolean
+  },
+  $_veeValidate: { validator: 'new' },
+  components: {
+    'v-form-generator-field': require('./form-field.vue').default
+  },
+  data () {
+    return {}
+  },
+  created: function () {
+    this.$watch(() => this.$invalid(), (value) => {
+      this.$emit('update:valid', !value)
+    })
+  },
+  methods: {
+    onBlur: function () {
+      console.info('blur')
     },
-    $_veeValidate: { validator: 'new' },
-    components: {
-      'v-form-generator-field': require('./form-field.vue').default
+    onChange: function () {
+      console.info('change')
     },
-    data () {
-      return {}
+    onFocus: function () {
+      console.info('focus')
     },
-    created: function () {
-      this.$watch(() => this.$invalid(), (value) => {
-        this.$emit('update:valid', !value)
-      })
-    },
-    methods: {
-      onBlur: function () {
-        console.info('blur')
-      },
-      onChange: function () {
-        console.info('change')
-      },
-      onFocus: function () {
-        console.info('focus')
-      },
-      onInput: function (value, fieldName) {
-        this.model[fieldName] = value
-        this.$emit('update:model', this.model)
-      }
+    onInput: function (value, fieldName) {
+      this.model[fieldName] = value
+      this.$emit('update:model', this.model)
     }
   }
+}
 </script>

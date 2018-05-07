@@ -21,11 +21,11 @@
     />
 </template>
 <script>
-  import abstractField from '../abstractField'
+import abstractField from '../abstractField'
 
-  export default {
-    inject: ['$validator'],
-    mixins: [abstractField],
-    fieldTypes: ['single_line', 'multi_line', 'unit_field', 'ssn', 'phone', 'email']
-  }
+export default {
+  inject: ['$validator'],
+  mixins: [abstractField],
+  fieldTypes: ['single_line', 'multi_line', 'unit_field', 'ssn', 'phone', 'email']
+}
 </script>

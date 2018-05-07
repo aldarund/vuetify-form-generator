@@ -68,27 +68,27 @@
 </style>
 
 <script>
-  export default {
-    name: 'v-display-application',
-    props: {
-      form: Object
-    },
-    data () {
-      return {}
-    },
-    methods: {
-      getChoiceValue (field) {
-        const choice = field.choices.find((labelValue) => {
-          return field.value === labelValue.value
-        })
-        if (choice) {
-          return choice.label
-        } else {
-          return field.value
-        }
+export default {
+  name: 'v-display-application',
+  props: {
+    form: Object
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    getChoiceValue (field) {
+      const choice = field.choices.find((labelValue) => {
+        return field.value === labelValue.value
+      })
+      if (choice) {
+        return choice.label
+      } else {
+        return field.value
       }
     }
   }
+}
 </script>
 <style scoped>
     @font-face {

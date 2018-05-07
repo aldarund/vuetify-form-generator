@@ -41,34 +41,34 @@
 </style>
 
 <script>
-  import abstractField from '../abstractField'
-  import VueSignature from 'vue-signature'
+import abstractField from '../abstractField'
+import VueSignature from 'vue-signature'
 
-  export default {
-    mixins: [abstractField],
-    fieldTypes: ['signature'],
-    components: {
-      'vue-signature': VueSignature
-    },
-    data () {
-      return {
-        mode: 'graph',
-        option: {
-          onEnd: () => (
-            this.save()
-          )
-        }
-      }
-    },
-    methods: {
-      save () {
-        let sign = this.$refs.signature.save()
-        this.$emit('upd', sign, this.field.name)
-      },
-      clear () {
-        this.$refs.signature.clear()
-        this.$emit('upd', '', this.field.name)
+export default {
+  mixins: [abstractField],
+  fieldTypes: ['signature'],
+  components: {
+    'vue-signature': VueSignature
+  },
+  data () {
+    return {
+      mode: 'graph',
+      option: {
+        onEnd: () => (
+          this.save()
+        )
       }
     }
+  },
+  methods: {
+    save () {
+      let sign = this.$refs.signature.save()
+      this.$emit('upd', sign, this.field.name)
+    },
+    clear () {
+      this.$refs.signature.clear()
+      this.$emit('upd', '', this.field.name)
+    }
   }
+}
 </script>

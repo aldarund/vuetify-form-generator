@@ -36,36 +36,36 @@
     </v-menu>
 </template>
 <script>
-  import abstractField from '../abstractField'
-  //  TOOD fix field. not very usable
-  export default {
-    mixins: [abstractField],
-    fieldTypes: ['date'],
-    data () {
-      return {
-        menu: false,
-        dateFormatted: null
-      }
+import abstractField from '../abstractField'
+//  TOOD fix field. not very usable
+export default {
+  mixins: [abstractField],
+  fieldTypes: ['date'],
+  data () {
+    return {
+      menu: false,
+      dateFormatted: null
+    }
+  },
+  methods: {
+    setDate (date) {
+      this.dateFormatted = this.formatDate(date)
+      this.onInput()
     },
-    methods: {
-      setDate (date) {
-        this.dateFormatted = this.formatDate(date)
-        this.onInput()
-      },
-      formatDate (date) {
-        if (!date) {
-          return null
-        }
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-      },
-      parseDate (date) {
-        if (!date) {
-          return null
-        }
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    formatDate (date) {
+      if (!date) {
+        return null
       }
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+    parseDate (date) {
+      if (!date) {
+        return null
+      }
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     }
   }
+}
 </script>
