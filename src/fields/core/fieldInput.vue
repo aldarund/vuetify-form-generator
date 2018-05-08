@@ -14,6 +14,7 @@
             :data-vv-delay="delay"
             :data-vv-name="field.name"
             :mask="field.mask"
+            :type="field.type"
             @blur="onBlur"
             @change="onChange"
             @focus="onFocus"
