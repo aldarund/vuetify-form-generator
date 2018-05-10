@@ -1,6 +1,6 @@
 <template>
     <v-text-field
-            v-model="localValue"
+            v-model.trim="localValue"
             :label="field.label"
             :required="field.required"
             :readonly="field.editable"
