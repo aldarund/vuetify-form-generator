@@ -21,6 +21,6 @@ export default {
     },
     onInput: function () {
       this.$emit('upd', this.localValue, this.field.name)
-    },
+    }
   }
 }
