@@ -1,0 +1,20 @@
+{
+  "presets": [
+    ["vue-app", {
+      "modules": false
+    }]
+  ],
+  "plugins": [
+     ["wildcard", {
+            "exts": ["js", "es6", "es", "jsx", "vue"]
+        }],
+    ["module-resolver", {
+      "extensions": [".js", ".vue", ".json"]
+    }]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["dynamic-import-node"]
+    }
+  }
+}

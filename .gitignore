@@ -1,3 +1,6 @@
+# Created by https://www.gitignore.io/api/node,visualstudiocode
+
+### Node ###
 # Logs
 logs
 *.log
@@ -29,7 +32,7 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
@@ -56,3 +59,15 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Generated code
+dist/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# End of https://www.gitignore.io/api/node,visualstudiocode

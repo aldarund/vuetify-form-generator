@@ -19,6 +19,7 @@
                 v-validate="field.validate"
                 :disabled="field.disabled"
                 :placeholder="field.placeholder"
+                :name="field.name"
                 @blur="localValue = parseDate(dateFormatted)"
                 @change="onChange"
                 @focus="onFocus"

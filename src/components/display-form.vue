@@ -69,38 +69,24 @@
 
 <script>
 export default {
-  name: 'v-display-application',
+  name: "vuetify-display-form",
   props: {
     form: Object
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   methods: {
-    getChoiceValue (field) {
-      const choice = field.choices.find((labelValue) => {
-        return field.value === labelValue.value
-      })
+    getChoiceValue(field) {
+      const choice = field.choices.find(labelValue => {
+        return field.value === labelValue.value;
+      });
       if (choice) {
-        return choice.label
+        return choice.label;
       } else {
-        return field.value
+        return field.value;
       }
     }
   }
-}
+};
 </script>
-<style scoped>
-    @font-face {
-        font-family: 'Quentin';
-        src: url('assets/fonts/Quentin.woff2') format('woff2'),
-        url('assets/fonts/Quentin.woff') format('woff');
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    .signature-text {
-        font-family: Quentin, sans-serif;
-        font-size: 30px;
-    }
-</style>

@@ -1,4 +1,14 @@
-'use strict'
-let vg = require('./form-generator.vue').default
-let df = require('./display-form.vue').default
-export {vg as vFormGenerator, df as vDisplayApplication}
+import VuetifyFormGenerator from "./components/form-generator"
+import VuetifyDisplayForm from "./components/display-form"
+
+const LibraryModule = {
+  VuetifyFormGenerator,
+  VuetifyDisplayForm,
+  install(Vue) {
+    // Register components with vue
+    Vue.component("VuetifyFormGenerator", VuetifyFormGenerator)
+    Vue.component("VuetifyDisplayForm", VuetifyDisplayForm)
+  }
+}
+export default LibraryModule
+export { VuetifyFormGenerator, VuetifyDisplayForm }
