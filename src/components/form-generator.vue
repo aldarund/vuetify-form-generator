@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="(section, index) in form.sections"
+      v-for="(section, index) in schema"
       :key="`vf-${index}`">
       <v-card>
         <v-card-title>{{ section.label }}</v-card-title>
@@ -32,6 +32,10 @@ export default {
   props: {
     model: {
       type: Object,
+      required: true
+    },
+    schema: {
+      type: Array,
       required: true
     },
     valid: {
