@@ -1,14 +1,15 @@
 <template>
   <div>
-    <component 
-      :is="field.field_id" 
-      :field="field" 
-      :value="field.value" 
+    <component
+      :is="field.field_id"
+      :field="field"
+      :value="field.value"
       @upd="onUpd"/>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line import/extensions,import/no-unresolved
 import * as coreFields from "./fields/core"
 let fieldComponents = {}
 Object.keys(coreFields).forEach(key => {
@@ -21,8 +22,15 @@ export default {
   name: "VFormGeneratorField",
   components: fieldComponents,
   props: {
-    field: Object,
-    value: null
+    field: {
+      type: Object,
+      required: true
+    },
+    value: {
+      type: [String, Number],
+      required: false,
+      default: null
+    }
   },
   methods: {
     onUpd: function(value, fieldName) {

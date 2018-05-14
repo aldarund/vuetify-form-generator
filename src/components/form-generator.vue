@@ -1,13 +1,17 @@
 <template>
   <div>
-    <div v-for="section in schema">
+    <div
+      v-for="(section, index) in form.sections"
+      :key="`vf-${index}`">
       <v-card>
         <v-card-title>{{ section.label }}</v-card-title>
         <v-card-text>
-          <div v-for="field in section.fields">
-            <v-form-generator-field 
-              :field="field" 
-              :value="model[field.model]" 
+          <div
+            v-for="field in section.fields"
+            :key="field.name">
+            <v-form-generator-field
+              :field="field"
+              :value="model[field.model]"
               @upd="onInput"
               @increment="onInput"/>
           </div>
@@ -26,9 +30,14 @@ export default {
     "v-form-generator-field": formField
   },
   props: {
-    model: Object,
-    schema: Array,
-    valid: Boolean
+    model: {
+      type: Object,
+      required: true
+    },
+    valid: {
+      type: Boolean,
+      default: false
+    }
   },
   $_veeValidate: { validator: "new" },
   data() {
@@ -44,13 +53,13 @@ export default {
   },
   methods: {
     onBlur: function() {
-      console.info("blur")
+      // console.info("blur")
     },
     onChange: function() {
-      console.info("change")
+      // console.info("change")
     },
     onFocus: function() {
-      console.info("focus")
+      // console.info("focus")
     },
     onInput: function(value, fieldName) {
       this.model[fieldName] = value
