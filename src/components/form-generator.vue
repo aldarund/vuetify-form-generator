@@ -12,6 +12,7 @@
             <v-form-generator-field
               :field="field"
               :value="model[field.model]"
+              :scope="validationScope"
               @upd="onInput"
               @increment="onInput"/>
           </div>
@@ -41,6 +42,11 @@ export default {
     valid: {
       type: Boolean,
       default: false
+    },
+    validationScope: {
+      type: String,
+      default: null,
+      required: false
     }
   },
   inject: {

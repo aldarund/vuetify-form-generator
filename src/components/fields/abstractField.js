@@ -1,7 +1,19 @@
 export default {
   props: {
-    field: Object,
-    value: null
+    field: {
+      type: Object,
+      required: true
+    },
+    value: {
+      type: String,
+      default: null,
+      required: false
+    },
+    scope: {
+      type: String,
+      default: null,
+      required: false
+    }
   },
   data() {
     return {
@@ -11,20 +23,21 @@ export default {
   },
   computed: {
     veeFieldName() {
-      // if (this.scope) {
-      //   return `${this.scope}.${this.field.name}`;
-      // } else {
-      //   return this.field.name;
-      // }
-      return this.field.name
+      if (this.scope) {
+        return `${this.scope}.${this.field.name}`
+      } else {
+        return this.field.name
+      }
+    },
+    errorMessages() {
+      return this.veeField && (this.veeField.dirty || this.veeField.validated) && this.errors.has(this.veeFieldName) ? this.errors.collect(this.field.name) : undefined
     },
     veeField() {
-      // if (this.scope) {
-      //   return (this.fields[`$` + this.scope] || {})[this.name];
-      // } else {
-      //   return this.fields[this.field.name];
-      // }
-      return this.fields[this.field.name]
+      if (this.scope) {
+        return (this.fields[`$` + this.scope] || {})[this.field.name]
+      } else {
+        return this.fields[this.field.name]
+      }
     }
   },
   methods: {

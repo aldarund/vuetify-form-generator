@@ -3,6 +3,7 @@
     <component
       :is="field.field_id"
       :field="field"
+      :scope="scope"
       :value="field.value"
       @upd="onUpd"/>
   </div>
@@ -30,6 +31,11 @@ export default {
       type: [String, Number],
       required: false,
       default: null
+    },
+    scope: {
+      type: String,
+      default: null,
+      required: false
     }
   },
   methods: {
