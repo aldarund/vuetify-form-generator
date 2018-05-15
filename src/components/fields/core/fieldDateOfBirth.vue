@@ -14,9 +14,12 @@
       v-validate="field.validate"
       slot="activator"
       v-model="dateFormatted"
+      :error="errors.has(veeFieldNamename)"
+      :error-messages="veeField && (veeField.dirty || veeField.validated) && errors.has(veeFieldName) ? errors.collect(veeFieldName) : undefined"
       :label="field.label"
       :required="field.required"
       :disabled="field.disabled"
+      :data-vv-as="field.label"
       :placeholder="field.placeholder"
       :name="field.name"
       readonly
@@ -25,10 +28,10 @@
       @focus="onFocus"
       @input="onInput"
     />
-    <v-date-picker 
-      ref="picker" 
-      v-model="localValue" 
-      :min="min" 
+    <v-date-picker
+      ref="picker"
+      v-model="localValue"
+      :min="min"
       :max="max"
       @change="save"
     />

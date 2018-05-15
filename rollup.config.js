@@ -10,7 +10,6 @@ import replace from "rollup-plugin-replace"
 import uglify from "rollup-plugin-uglify"
 import VuePlugin from "rollup-plugin-vue"
 import { minify } from "uglify-es"
-import requireContext from "rollup-plugin-require-context"
 
 import pack from "./package.json"
 
@@ -71,7 +70,6 @@ function genConfig(name) {
       commonjs(),
       VuePlugin({ compileTemplate: true, css: true }),
       json(),
-      requireContext(),
       babel({
         exclude: "node_modules/**",
         runtimeHelpers: true

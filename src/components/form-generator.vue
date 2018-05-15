@@ -43,6 +43,9 @@ export default {
       default: false
     }
   },
+  inject: {
+    $validator: { default: false }
+  },
   $_veeValidate: { validator: "new" },
   data() {
     return {}
