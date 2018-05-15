@@ -9,6 +9,24 @@ export default {
       delay: 600
     }
   },
+  computed: {
+    veeFieldName() {
+      // if (this.scope) {
+      //   return `${this.scope}.${this.field.name}`;
+      // } else {
+      //   return this.field.name;
+      // }
+      return this.field.name
+    },
+    veeField() {
+      // if (this.scope) {
+      //   return (this.fields[`$` + this.scope] || {})[this.name];
+      // } else {
+      //   return this.fields[this.field.name];
+      // }
+      return this.fields[this.field.name]
+    }
+  },
   methods: {
     onBlur: function() {
       this.$emit("blur")
