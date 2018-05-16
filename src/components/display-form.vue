@@ -3,7 +3,7 @@
     <div
       v-for="(section, index) in form.sections"
       :key="`vf-${index}`">
-      <v-card>
+      <v-card flat>
         <v-card-title>{{ section.label }}</v-card-title>
         <v-card-text>
           <v-container grid-list-md>

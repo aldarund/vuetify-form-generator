@@ -3,7 +3,7 @@
     <div
       v-for="(section, index) in schema"
       :key="`vf-${index}`">
-      <v-card>
+      <v-card flat>
         <v-card-title>{{ section.label }}</v-card-title>
         <v-card-text>
           <div
