@@ -61,7 +61,7 @@ typings/
 .env
 
 # Generated code
-dist/
+# dist/
 
 ### VisualStudioCode ###
 .vscode/*
