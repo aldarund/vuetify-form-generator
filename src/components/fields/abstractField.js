@@ -25,9 +25,8 @@ export default {
     this.onInput()
   },
   watch: {
-    'value': {
+    value: {
       handler: function(v) {
-        console.log('v1', v)
         this.localValue = v
       }
     }

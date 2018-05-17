@@ -63,14 +63,6 @@ export default {
       }
     )
   },
-   watch: {
-      'model': {
-        handler: function(md) {
-          console.log('md', md)
-        },
-        deep: true
-      }
-    },
   methods: {
     onBlur: function() {
       // console.info("blur")
