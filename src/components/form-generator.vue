@@ -11,10 +11,9 @@
             :key="field.name">
             <v-form-generator-field
               :field="field"
-              :value="model[field.model]"
+              :value="model[field.name] || field.value"
               :scope="validationScope"
-              @upd="onInput"
-              @increment="onInput"/>
+              @upd="onInput"/>
           </div>
         </v-card-text>
       </v-card>
@@ -64,6 +63,14 @@ export default {
       }
     )
   },
+   watch: {
+      'model': {
+        handler: function(md) {
+          console.log('md', md)
+        },
+        deep: true
+      }
+    },
   methods: {
     onBlur: function() {
       // console.info("blur")
@@ -75,7 +82,7 @@ export default {
       // console.info("focus")
     },
     onInput: function(value, fieldName) {
-      this.model[fieldName] = value
+      this.$set(this.model, fieldName, value)
       this.$emit("update:model", this.model)
     }
   }

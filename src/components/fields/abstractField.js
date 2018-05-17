@@ -21,6 +21,17 @@ export default {
       delay: 600
     }
   },
+  mounted: function() {
+    this.onInput()
+  },
+  watch: {
+    'value': {
+      handler: function(v) {
+        console.log('v1', v)
+        this.localValue = v
+      }
+    }
+  },
   computed: {
     veeFieldName() {
       if (this.scope) {
@@ -30,7 +41,11 @@ export default {
       }
     },
     errorMessages() {
-      return this.veeField && (this.veeField.dirty || this.veeField.validated) && this.errors.has(this.veeFieldName) ? this.errors.collect(this.field.name) : undefined
+      return this.veeField &&
+        (this.veeField.dirty || this.veeField.validated) &&
+        this.errors.has(this.veeFieldName)
+        ? this.errors.collect(this.field.name)
+        : undefined
     },
     veeField() {
       if (this.scope) {

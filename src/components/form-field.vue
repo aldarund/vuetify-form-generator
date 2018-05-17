@@ -4,7 +4,7 @@
       :is="field.field_id"
       :field="field"
       :scope="scope"
-      :value="field.value"
+      :value="value"
       @upd="onUpd"/>
   </div>
 </template>

@@ -12,7 +12,7 @@
     :error="errors.has(veeFieldName)"
     :error-messages="errorMessages"
     :multi-line="field.field_id === 'multi_line'"
-    :data-vv-delay="delay"
+    :data-vv-delay="field.delay"
     :data-vv-as="field.label"
     :data-vv-name="field.name"
     :data-vv-scope="scope"
