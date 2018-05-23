@@ -10,6 +10,7 @@ import replace from "rollup-plugin-replace"
 import { uglify } from "rollup-plugin-uglify"
 import VuePlugin from "rollup-plugin-vue"
 import { minify } from "uglify-es"
+import postcss from 'rollup-plugin-postcss'
 
 import pack from "./package.json"
 
@@ -55,7 +56,7 @@ const builds = {
   }
 }
 
-function genConfig(name) {
+function genConfig (name) {
   const opts = builds[name]
   const config = {
     input: opts.entry,
@@ -70,10 +71,16 @@ function genConfig(name) {
       commonjs(),
       VuePlugin({
         compileTemplate: true,
+        // styleToImports: true,
+        css: false,
         template: {
+          // styleToImports: true,
           isProduction: opts.env === "production",
           compilerOptions: { preserveWhitespace: false }
         }
+      }),
+      postcss({
+        plugins: []
       }),
       json(),
       babel({

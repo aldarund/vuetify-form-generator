@@ -579,8 +579,37 @@ var script$1 = {
   }
 };
 
-var __vue_script__$1 = script$1;
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
 
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = "\n@font-face {\n  font-family: \"Quentin\";\n  src: url(\"./../../assets/fonts/Quentin.woff2\") format(\"woff2\"),\n    url(\"./../../assets/fonts/Quentin.woff\") format(\"woff\");\n  font-weight: bold;\n  font-style: normal;\n}\n.signature-text[data-v-099618ec] {\n  font-family: Quentin, sans-serif;\n  font-size: 30px;\n}\n";
+styleInject(css);
+
+var __vue_script__$1 = script$1;
 /* template */
 var __vue_render__$1 = function __vue_render__() {
   var _vm = this;
@@ -637,10 +666,7 @@ __vue_render__$1._withStripped = true;
 
 var __vue_template__$1 = typeof __vue_render__$1 !== 'undefined' ? { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 } : {};
 /* style */
-var __vue_inject_styles__$1 = function (inject) {
-  if (!inject) return;
-  inject("data-v-099618ec_0", { source: "\n@font-face {\n  font-family: \"Quentin\";\n  src: url(\"./../../assets/fonts/Quentin.woff2\") format(\"woff2\"),\n    url(\"./../../assets/fonts/Quentin.woff\") format(\"woff\");\n  font-weight: bold;\n  font-style: normal;\n}\n.signature-text[data-v-099618ec] {\n  font-family: Quentin, sans-serif;\n  font-size: 30px;\n}\n", map: undefined, media: undefined });
-};
+var __vue_inject_styles__$1 = undefined;
 /* scoped */
 var __vue_scope_id__$1 = "data-v-099618ec";
 /* module identifier */
@@ -664,30 +690,6 @@ function __vue_normalize__$1(template, style, script, scope, functional, moduleI
   }
 
   component._scopeId = scope;
-
-  {
-    var hook = void 0;
-    if (style) {
-      hook = function hook(context) {
-        style.call(this, createInjector(context));
-      };
-    }
-
-    if (hook !== undefined) {
-      if (component.functional) {
-        // register for functional component in vue file
-        var originalRender = component.render;
-        component.render = function renderWithStyleInjection(h, context) {
-          hook.call(context);
-          return originalRender(h, context);
-        };
-      } else {
-        // inject component registration as beforeCreate hook
-        var existing = component.beforeCreate;
-        component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-      }
-    }
-  }
 
   return component;
 }
@@ -2270,8 +2272,10 @@ var script$8 = {
   }
 };
 
-var __vue_script__$8 = script$8;
+var css$1 = "\n@font-face {\n  font-family: \"Quentin\";\n  src: url(\"./assets/fonts/Quentin.woff2\") format(\"woff2\"),\n    url(\"./assets/fonts/Quentin.woff\") format(\"woff\");\n  font-weight: bold;\n  font-style: normal;\n}\n.signature-text[data-v-8babc3f4] {\n  font-family: Quentin, sans-serif;\n  font-size: 30px;\n}\n.v-display-form .layout.row[data-v-8babc3f4]:nth-child(2n) {\n  background-color: #f6f6f6;\n}\n";
+styleInject(css$1);
 
+var __vue_script__$8 = script$8;
 /* template */
 var __vue_render__$8 = function __vue_render__() {
   var _vm = this;
@@ -2295,10 +2299,7 @@ __vue_render__$8._withStripped = true;
 
 var __vue_template__$8 = typeof __vue_render__$8 !== 'undefined' ? { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 } : {};
 /* style */
-var __vue_inject_styles__$8 = function (inject) {
-  if (!inject) return;
-  inject("data-v-8babc3f4_0", { source: "\n@font-face {\n  font-family: \"Quentin\";\n  src: url(\"./assets/fonts/Quentin.woff2\") format(\"woff2\"),\n    url(\"./assets/fonts/Quentin.woff\") format(\"woff\");\n  font-weight: bold;\n  font-style: normal;\n}\n.signature-text[data-v-8babc3f4] {\n  font-family: Quentin, sans-serif;\n  font-size: 30px;\n}\n.v-display-form .layout.row[data-v-8babc3f4]:nth-child(2n) {\n  background-color: #f6f6f6;\n}\n", map: undefined, media: undefined });
-};
+var __vue_inject_styles__$8 = undefined;
 /* scoped */
 var __vue_scope_id__$8 = "data-v-8babc3f4";
 /* module identifier */
@@ -2322,30 +2323,6 @@ function __vue_normalize__$8(template, style, script, scope, functional, moduleI
   }
 
   component._scopeId = scope;
-
-  {
-    var hook = void 0;
-    if (style) {
-      hook = function hook(context) {
-        style.call(this, createInjector(context));
-      };
-    }
-
-    if (hook !== undefined) {
-      if (component.functional) {
-        // register for functional component in vue file
-        var originalRender = component.render;
-        component.render = function renderWithStyleInjection(h, context) {
-          hook.call(context);
-          return originalRender(h, context);
-        };
-      } else {
-        // inject component registration as beforeCreate hook
-        var existing = component.beforeCreate;
-        component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-      }
-    }
-  }
 
   return component;
 }
