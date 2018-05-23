@@ -595,19 +595,19 @@
 	  return _c("div", [_vm.mode === "graph" ? _c("div", [_c("vue-signature", {
 	    ref: "signature",
 	    attrs: { "sig-option": _vm.option }
-	  }), _vm._v(" "), _c("a", {
+	  }), _c("a", {
 	    on: {
 	      click: function click($event) {
 	        _vm.mode = "text";
 	      }
 	    }
-	  }, [_vm._v("Prefer to type your signature? Click here")]), _vm._v(" "), _c("v-btn", {
+	  }, [_vm._v("Prefer to type your signature? Click here")]), _c("v-btn", {
 	    on: {
 	      click: function click($event) {
 	        _vm.clear();
 	      }
 	    }
-	  }, [_vm._v("clear")])], 1) : _vm.mode === "text" ? _c("div", [_c("div", { staticClass: "signature-text" }, [_vm._v(_vm._s(_vm.localValue))]), _vm._v(" "), _c("v-text-field", {
+	  }, [_vm._v("clear")])], 1) : _vm.mode === "text" ? _c("div", [_c("div", { staticClass: "signature-text" }, [_vm._v(_vm._s(_vm.localValue))]), _c("v-text-field", {
 	    attrs: {
 	      label: _vm.field.label,
 	      required: _vm.field.required,
@@ -630,7 +630,7 @@
 	      },
 	      expression: "localValue"
 	    }
-	  }), _vm._v(" "), _c("a", {
+	  }), _c("a", {
 	    on: {
 	      click: function click($event) {
 	        _vm.mode = "graph";
@@ -670,6 +670,7 @@
 	  }
 
 	  component._scopeId = scope;
+
 
 	  {
 	    var hook = void 0;
@@ -1382,7 +1383,7 @@
 	      },
 	      expression: "dateFormatted"
 	    }
-	  }), _vm._v(" "), _c("v-date-picker", {
+	  }), _c("v-date-picker", {
 	    ref: "picker",
 	    attrs: { min: _vm.min, max: _vm.max },
 	    on: { change: _vm.save },
@@ -1578,7 +1579,7 @@
 	      },
 	      expression: "dateFormatted"
 	    }
-	  }), _vm._v(" "), _c("v-date-picker", {
+	  }), _c("v-date-picker", {
 	    attrs: { "no-title": "", scrollable: "", actions: "" },
 	    on: {
 	      input: function input($event) {
@@ -1590,10 +1591,10 @@
 	      fn: function fn(ref) {
 	        var save = ref.save;
 	        var cancel = ref.cancel;
-	        return [_c("v-card-actions", [_c("v-spacer"), _vm._v(" "), _c("v-btn", {
+	        return [_c("v-card-actions", [_c("v-spacer"), _c("v-btn", {
 	          attrs: { flat: "", color: "primary" },
 	          on: { click: cancel }
-	        }, [_vm._v("Cancel")]), _vm._v(" "), _c("v-btn", {
+	        }, [_vm._v("Cancel")]), _c("v-btn", {
 	          attrs: { flat: "", color: "primary" },
 	          on: { click: save }
 	        }, [_vm._v("OK")])], 1)];
@@ -2058,7 +2059,7 @@
 	  var _h = _vm.$createElement;
 	  var _c = _vm._self._c || _h;
 	  return _c("div", _vm._l(_vm.schema, function (section, index) {
-	    return _c("div", { key: "vf-" + index }, [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-title", [_vm._v(_vm._s(section.label))]), _vm._v(" "), _c("v-card-text", _vm._l(section.fields, function (field) {
+	    return _c("div", { key: "vf-" + index }, [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-title", [_vm._v(_vm._s(section.label))]), _c("v-card-text", _vm._l(section.fields, function (field) {
 	      return _c("div", { key: field.name }, [_c("v-form-generator-field", {
 	        attrs: {
 	          field: field,
@@ -2284,7 +2285,7 @@
 	  var _h = _vm.$createElement;
 	  var _c = _vm._self._c || _h;
 	  return _c("div", { staticClass: "v-display-form" }, _vm._l(_vm.form.sections, function (section, index) {
-	    return _c("div", { key: "vf-" + index }, [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-title", [_vm._v(_vm._s(section.label))]), _vm._v(" "), _c("v-card-text", [_c("v-container", { attrs: { "grid-list-md": "" } }, _vm._l(section.fields, function (field) {
+	    return _c("div", { key: "vf-" + index }, [_c("v-card", { attrs: { flat: "" } }, [_c("v-card-title", [_vm._v(_vm._s(section.label))]), _c("v-card-text", [_c("v-container", { attrs: { "grid-list-md": "" } }, _vm._l(section.fields, function (field) {
 	      return _c("v-layout", {
 	        key: field.name,
 	        attrs: { row: "", wrap: "", "pb-2": "", "pt-2": "" }
@@ -2292,7 +2293,7 @@
 	        staticClass: "headline",
 	        attrs: { xs12: "", sm6: "" },
 	        domProps: { innerHTML: _vm._s(field.label) }
-	      })] : ["choice", "state", "combobox"].indexOf(field.field_id) !== -1 ? [_c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_vm._v("\n                " + _vm._s(field.label) + "\n              ")]), _vm._v(" "), _c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_c("strong", [_vm._v("\n                  " + _vm._s(_vm.getChoiceValue(field)) + "\n                ")])])] : [_c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_vm._v("\n                " + _vm._s(field.label) + "\n              ")]), _vm._v(" "), _c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_c("strong", [_vm._v("\n                  " + _vm._s(field.value) + "\n                ")])])]], 2);
+	      })] : ["choice", "state", "combobox"].indexOf(field.field_id) !== -1 ? [_c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_vm._v("\n                " + _vm._s(field.label) + "\n              ")]), _c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_c("strong", [_vm._v("\n                  " + _vm._s(_vm.getChoiceValue(field)) + "\n                ")])])] : [_c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_vm._v("\n                " + _vm._s(field.label) + "\n              ")]), _c("v-flex", { attrs: { xs12: "", sm6: "" } }, [_c("strong", [_vm._v("\n                  " + _vm._s(field.value) + "\n                ")])])]], 2);
 	    }))], 1)], 1)], 1);
 	  }));
 	};

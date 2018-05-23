@@ -68,7 +68,13 @@ function genConfig(name) {
         extensions: [".js", ".json", ".vue"]
       }),
       commonjs(),
-      VuePlugin({ compileTemplate: true, css: true }),
+      VuePlugin({
+        compileTemplate: true,
+        template: {
+          isProduction: opts.env === "production",
+          compilerOptions: { preserveWhitespace: false }
+        }
+      }),
       json(),
       babel({
         exclude: "node_modules/**",
