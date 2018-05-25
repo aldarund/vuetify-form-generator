@@ -4,6 +4,7 @@
     v-model.trim="localValue"
     :label="field.label"
     :required="field.required"
+    :maxlength="field.maxlength"
     :readonly="field.editable"
     :disabled="field.disabled"
     :placeholder="field.placeholder"
