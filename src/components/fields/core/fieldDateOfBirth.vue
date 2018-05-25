@@ -23,7 +23,9 @@
       :data-vv-scope="scope"
       :placeholder="field.placeholder"
       :name="field.name"
+      :ref="field.name"
       readonly
+      data-vv-validate-on="input"
       @blur="localValue = parseDate(dateFormatted)"
       @change="onChange"
       @focus="onFocus"
@@ -83,8 +85,7 @@ export default {
   methods: {
     save(date) {
       this.$refs.menu.save(date)
-      this.dateFormatted = this.formatDate(date)
-      this.onInput()
+      this.$refs[this.field.name].$emit("input", this.formatDate(date))
     },
     formatDate(date) {
       if (!date) {

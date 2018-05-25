@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      localValue: this.value,
+      localValue: this.value || null,
       delay: 600
     }
   },

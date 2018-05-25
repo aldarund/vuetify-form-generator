@@ -398,7 +398,7 @@ var abstractField = {
   },
   data: function data() {
     return {
-      localValue: this.value,
+      localValue: this.value || null,
       delay: 600
     };
   },
@@ -1291,8 +1291,7 @@ var script$3 = {
   methods: {
     save: function save(date) {
       this.$refs.menu.save(date);
-      this.dateFormatted = this.formatDate(date);
-      this.onInput();
+      this.$refs[this.field.name].$emit("input", this.formatDate(date));
     },
     formatDate: function formatDate(date) {
       if (!date) {
@@ -1355,6 +1354,7 @@ var __vue_render__$3 = function __vue_render__() {
       value: _vm.field.validate,
       expression: "field.validate"
     }],
+    ref: _vm.field.name,
     attrs: {
       slot: "activator",
       error: _vm.errors.has(_vm.veeFieldName),
@@ -1366,7 +1366,8 @@ var __vue_render__$3 = function __vue_render__() {
       "data-vv-scope": _vm.scope,
       placeholder: _vm.field.placeholder,
       name: _vm.field.name,
-      readonly: ""
+      readonly: "",
+      "data-vv-validate-on": "input"
     },
     on: {
       blur: function blur($event) {
