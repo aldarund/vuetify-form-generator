@@ -1,8 +1,10 @@
 <template>
-  <v-select
+  <v-autocomplete
     v-validate="field.required && 'required'"
     v-model="localValue"
     :items="field.choices"
+    :combobox="combobox"
+    :chips="combobox"
     :label="field.label"
     :required="field.required"
     :readonly="field.readonly"
@@ -29,6 +31,11 @@ import abstractField from "../abstractField"
 export default {
   inject: ["$validator"],
   mixins: [abstractField],
-  fieldTypes: ["choice"]
+  fieldTypes: ["autocomplete", "combobox"],
+  data() {
+    return {
+      combobox: this.field.field_id === "combobox"
+    }
+  }
 }
 </script>

@@ -1,20 +1,38 @@
 {
   "presets": [
-    ["vue-app", {
-      "modules": false
-    }]
+    [
+      "@vue/app"
+    ]
   ],
   "plugins": [
-     ["wildcard", {
-            "exts": ["js", "es6", "es", "jsx", "vue"]
-        }],
-    ["module-resolver", {
-      "extensions": [".js", ".vue", ".json"]
-    }]
+    [
+      "wildcard",
+      {
+        "exts": [
+          "js",
+          "es6",
+          "es",
+          "jsx",
+          "vue"
+        ]
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "extensions": [
+          ".js",
+          ".vue",
+          ".json"
+        ]
+      }
+    ]
   ],
   "env": {
     "test": {
-      "plugins": ["dynamic-import-node"]
+      "plugins": [
+        "dynamic-import-node"
+      ]
     }
   }
 }

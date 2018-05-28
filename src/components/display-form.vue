@@ -71,16 +71,8 @@
   </div>
 </template>
 <style scoped>
-@font-face {
-  font-family: "Quentin";
-  src: url("./assets/fonts/Quentin.woff2") format("woff2"),
-    url("./assets/fonts/Quentin.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-}
-
 .signature-text {
-  font-family: Quentin, sans-serif;
+  font-family: Arizonia, sans-serif;
   font-size: 30px;
 }
 

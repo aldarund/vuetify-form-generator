@@ -1,52 +1,70 @@
 <template>
   <div>
     <div v-if="mode === 'graph'">
+      <label
+        v-if="field.label"
+        for="field.name"
+        class="v-label"
+        style="left: 0px; right: auto; position: absolute;">{{ field.label }}</label>
       <vue-signature
+        v-validate="field.validate"
         ref="signature"
+        v-model="localValue"
+        :data-vv-scope="scope"
+        :data-vv-as="field.label"
+        :data-vv-name="field.name"
         :sig-option="option"/>
-      <a @click="mode = 'text'">Prefer to type your signature? Click here</a>
+      <div
+        v-if="errors.has(veeFieldName)"
+        class="v-text-field__details">
+        <div class="v-messages error--text">
+          <div
+            v-for="error in errorMessages"
+            :key="error"
+            class="v-messages__wrapper">
+            <div class="v-messages__message">{{ error }}</div>
+          </div>
+        </div>
+      </div>
+      <a @click="typeSignature()">Prefer to type your signature? Click here</a>
       <v-btn @click="clear()">clear</v-btn>
     </div>
     <div v-else-if="mode === 'text'">
-      <div class="signature-text">{{ localValue }}</div>
+      <div class="signature-text">{{ textSignature }}</div>
       <v-text-field
-        v-model="localValue"
+        v-validate="field.validate"
+        v-model.trim="textSignature"
         :label="field.label"
         :required="field.required"
         :readonly="field.editable"
         :disabled="field.disabled"
         :placeholder="field.placeholder"
+        :data-vv-as="field.label"
+        :data-vv-name="field.name"
+        :data-vv-scope="scope"
         :name="field.name"
         :id="field.name"
-        @blur="onBlur"
-        @change="onChange"
-        @focus="onFocus"
-        @input="onInput"
+        :error="errors.has(veeFieldName)"
+        :error-messages="errorMessages"
+        @input="onTextSignatureInput"
       />
-      <a @click="mode = 'graph'">Prefer to draw your signature? Click here</a>
+      <a @click="drawSignature()">Prefer to draw your signature? Click here</a>
     </div>
   </div>
 </template>
 <style scoped>
-@font-face {
-  font-family: "Quentin";
-  src: url("./../../assets/fonts/Quentin.woff2") format("woff2"),
-    url("./../../assets/fonts/Quentin.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-}
-
 .signature-text {
-  font-family: Quentin, sans-serif;
+  font-family: Arizonia, sans-serif;
   font-size: 30px;
 }
 </style>
 
 <script>
 import abstractField from "../abstractField"
-import VueSignature from "vue-signature"
+import VueSignature from "vue-signature/src/lib/vue-signature"
 
 export default {
+  inject: ["$validator"],
   components: {
     "vue-signature": VueSignature
   },
@@ -55,8 +73,11 @@ export default {
   data() {
     return {
       mode: "graph",
+      textSignature: null,
       option: {
-        onEnd: () => this.save()
+        onEnd: () => {
+          return this.save()
+        }
       }
     }
   },
@@ -64,6 +85,17 @@ export default {
     save() {
       let sign = this.$refs.signature.save()
       this.$emit("upd", sign, this.field.name)
+    },
+    onTextSignatureInput() {
+      this.$emit("upd", this.textSignature, this.field.name)
+    },
+    typeSignature() {
+      this.mode = "text"
+      this.onTextSignatureInput()
+    },
+    drawSignature() {
+      this.mode = "graph"
+      this.save()
     },
     clear() {
       this.$refs.signature.clear()
