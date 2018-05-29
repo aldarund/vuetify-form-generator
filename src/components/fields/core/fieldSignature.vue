@@ -4,11 +4,11 @@
       <label
         v-if="field.label"
         for="field.name"
-        class="v-label"
-        style="left: 0px; right: auto; position: absolute;">{{ field.label }}</label>
+        class="v-label">{{ field.label }}</label>
       <vue-signature
         v-validate="field.validate"
         ref="signature"
+        class="signature"
         v-model="localValue"
         :data-vv-scope="scope"
         :data-vv-as="field.label"
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <a @click="typeSignature()">Prefer to type your signature? Click here</a>
+      <a @click="typeSignature()" class="switch-signature">Prefer to type your signature? Click here</a>
       <v-btn @click="clear()">clear</v-btn>
     </div>
     <div v-else-if="mode === 'text'">
@@ -48,7 +48,7 @@
         :error-messages="errorMessages"
         @input="onTextSignatureInput"
       />
-      <a @click="drawSignature()">Prefer to draw your signature? Click here</a>
+      <a @click="drawSignature()" class="switch-signature">Prefer to draw your signature? Click here</a>
     </div>
   </div>
 </template>
@@ -56,6 +56,13 @@
 .signature-text {
   font-family: Arizonia, sans-serif;
   font-size: 30px;
+}
+.v-label {
+  position: relative;
+  cursor: inherit;
+}
+.signature {
+  border: grey dashed 1px;
 }
 </style>
 
@@ -71,6 +78,7 @@ export default {
   mixins: [abstractField],
   fieldTypes: ["signature"],
   data() {
+    const ratio =  1.5
     return {
       mode: "graph",
       textSignature: null,

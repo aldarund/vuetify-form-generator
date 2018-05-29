@@ -1457,7 +1457,6 @@
 	  fieldTypes: ["signature"],
 	  data: function data() {
 	    var _this = this;
-
 	    return {
 	      mode: "graph",
 	      textSignature: null,
@@ -1491,7 +1490,7 @@
 	  }
 	};
 
-	var css$1 = "@font-face {\n  font-family: Arizonia;\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Arizonia Regular\"),local(Arizonia-Regular),url(//fonts.gstatic.com/s/arizonia/v8/u7E0xBiSyufT4DCm3LWEtfesZW2xOQ-xsNqO47m55DA.eot?#) format(\"eot\"),url(//fonts.gstatic.com/s/arizonia/v8/PwrsyFTYH2Wmsvpn0dx4s_esZW2xOQ-xsNqO47m55DA.woff2) format(\"woff2\"),url(//fonts.gstatic.com/s/arizonia/v8/8Usm7f8XTsZinW2e-ZMd5fesZW2xOQ-xsNqO47m55DA.woff) format(\"woff\");\n}\n.signature-text[data-v-3e4e25bd] {\n  font-family: Arizonia, sans-serif;\n  font-size: 30px;\n}\n";
+	var css$1 = "@font-face {\n  font-family: Arizonia;\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Arizonia Regular\"),local(Arizonia-Regular),url(//fonts.gstatic.com/s/arizonia/v8/u7E0xBiSyufT4DCm3LWEtfesZW2xOQ-xsNqO47m55DA.eot?#) format(\"eot\"),url(//fonts.gstatic.com/s/arizonia/v8/PwrsyFTYH2Wmsvpn0dx4s_esZW2xOQ-xsNqO47m55DA.woff2) format(\"woff2\"),url(//fonts.gstatic.com/s/arizonia/v8/8Usm7f8XTsZinW2e-ZMd5fesZW2xOQ-xsNqO47m55DA.woff) format(\"woff\");\n}\n.signature-text[data-v-07c301c1] {\n  font-family: Arizonia, sans-serif;\n  font-size: 30px;\n}\n.v-label[data-v-07c301c1] {\n  position: relative;\n  cursor: inherit;\n}\n.signature[data-v-07c301c1] {\n  border: grey dashed 1px;\n}\n";
 	styleInject(css$1);
 
 	var __vue_script__$2 = script$2;
@@ -1506,11 +1505,6 @@
 
 	  return _c("div", [_vm.mode === "graph" ? _c("div", [_vm.field.label ? _c("label", {
 	    staticClass: "v-label",
-	    staticStyle: {
-	      left: "0px",
-	      right: "auto",
-	      position: "absolute"
-	    },
 	    attrs: {
 	      for: "field.name"
 	    }
@@ -1522,6 +1516,7 @@
 	      expression: "field.validate"
 	    }],
 	    ref: "signature",
+	    staticClass: "signature",
 	    attrs: {
 	      "data-vv-scope": _vm.scope,
 	      "data-vv-as": _vm.field.label,
@@ -1547,6 +1542,7 @@
 	      staticClass: "v-messages__message"
 	    }, [_vm._v(_vm._s(error))])]);
 	  }))]) : _vm._e(), _c("a", {
+	    staticClass: "switch-signature",
 	    on: {
 	      click: function click($event) {
 	        _vm.typeSignature();
@@ -1592,6 +1588,7 @@
 	      expression: "textSignature"
 	    }
 	  }), _c("a", {
+	    staticClass: "switch-signature",
 	    on: {
 	      click: function click($event) {
 	        _vm.drawSignature();
@@ -1614,7 +1611,7 @@
 	/* scoped */
 
 
-	var __vue_scope_id__$2 = "data-v-3e4e25bd";
+	var __vue_scope_id__$2 = "data-v-07c301c1";
 	/* module identifier */
 
 
