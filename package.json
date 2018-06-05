@@ -1,7 +1,7 @@
 {
   "name": "vuetify-form-generator",
   "description": "Vuetify Form Generator",
-  "version": "0.0.3-development",
+  "version": "0.0.4-development",
   "license": "MIT",
   "main": "dist/vuetify-form-generator.common.js",
   "module": "dist/vuetify-form-generator.esm.js",
@@ -52,7 +52,7 @@
     "vee-validate": "^2.0.9",
     "vue": "^2.5.16",
     "vue-signature": "^2.2.2",
-    "vuetify": "^1.1.0-beta.1"
+    "vuetify": "^1.1.0-beta.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
@@ -88,7 +88,7 @@
     "jest-vue-preprocessor": "^1.4.0",
     "lint-staged": "^7.1.3",
     "lodash": "^4.17.10",
-    "postcss-font-magician": "^2.1.1",
+    "postcss-font-magician": "^2.2.0",
     "prettier": "^1.13.4",
     "rollup": "^0.59.4",
     "rollup-plugin-babel": "^4.0.0-beta.4",

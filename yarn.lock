@@ -8716,14 +8716,14 @@ postcss-flexbugs-fixes@^3.2.0:
   dependencies:
     postcss "^6.0.1"
 
-postcss-font-magician@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-font-magician/-/postcss-font-magician-2.1.1.tgz#331660cc3e1b59683c393394ebcc2d1c10b19f84"
+postcss-font-magician@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/postcss-font-magician/-/postcss-font-magician-2.2.0.tgz#2ebcfd24b70b4385726debce0860febd5b348c0d"
   dependencies:
     bootstrap-fonts-complete "^1.0.0"
     directory-fonts-complete "^1.2.0"
     google-fonts-complete "^1.2.1"
-    postcss "^6.0.1"
+    postcss "^6.0.22"
 
 postcss-load-config@^1.2.0:
   version "1.2.0"
@@ -11228,9 +11228,9 @@ vue@^2.4.4, vue@^2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
-vuetify@^1.1.0-beta.1:
-  version "1.1.0-beta.1"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.1.0-beta.1.tgz#94729349a64074a176a1d6fc491191427465576d"
+vuetify@^1.1.0-beta.2:
+  version "1.1.0-beta.2"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.1.0-beta.2.tgz#834339b16dab94ca9f47c4acfee7b61d2ec5300a"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
