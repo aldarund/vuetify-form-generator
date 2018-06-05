@@ -6,6 +6,7 @@
     :combobox="combobox"
     :chips="combobox"
     :label="field.label"
+    :autocomplete="field.autocomplete"
     :required="field.required"
     :readonly="field.readonly"
     :disabled="field.disabled"

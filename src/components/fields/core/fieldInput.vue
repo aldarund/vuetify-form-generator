@@ -3,6 +3,7 @@
     v-validate="field.validate"
     v-model.trim="localValue"
     :label="field.label"
+    :autocomplete="field.autocomplete"
     :required="field.required"
     :maxlength="field.maxlength"
     :readonly="field.editable"

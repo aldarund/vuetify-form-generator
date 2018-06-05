@@ -6,6 +6,7 @@
     :label="field.label"
     :required="field.required"
     :readonly="field.readonly"
+    :autocomplete="field.autocomplete"
     :disabled="field.disabled"
     :error="errors.has(veeFieldName)"
     :error-messages="errorMessages"
