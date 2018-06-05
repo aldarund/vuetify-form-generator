@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-form class="v-form-generator">
     <div
       v-for="(section, index) in schema"
       :key="`vf-${index}`">
@@ -18,7 +18,7 @@
         </v-card-text>
       </v-card>
     </div>
-  </div>
+  </v-form>
 </template>
 
 <script>

@@ -1264,11 +1264,11 @@ _stringTrim('trim', function ($trim) {
 							sx:data.sx || 40,
 							sy:data.sy || 40
 						};
-						
+
 					var ctx = vCanvas.getContext('2d');
 						ctx.font = data.font || '20px sans-serif';
 						ctx.fillStyle = data.fillStyle || "#333";
-						ctx.strokeStyle = data.strokeStyle || "#333";    
+						ctx.strokeStyle = data.strokeStyle || "#333";
     					if(data.style == 'all'){
 							ctx.fillText(textData.text,textData.x,textData.y);
 							ctx.strokeText(textData.text,textData.sx,textData.sx);
@@ -1721,6 +1721,7 @@ var __vue_render__$3 = function __vue_render__() {
     }],
     attrs: {
       label: _vm.field.label,
+      autocomplete: _vm.field.autocomplete,
       required: _vm.field.required,
       maxlength: _vm.field.maxlength,
       readonly: _vm.field.editable,
@@ -2591,6 +2592,7 @@ var __vue_render__$6 = function __vue_render__() {
       label: _vm.field.label,
       required: _vm.field.required,
       readonly: _vm.field.readonly,
+      autocomplete: _vm.field.autocomplete,
       disabled: _vm.field.disabled,
       error: _vm.errors.has(_vm.veeFieldName),
       "error-messages": _vm.errorMessages,
@@ -2757,6 +2759,7 @@ var __vue_render__$7 = function __vue_render__() {
       combobox: _vm.combobox,
       chips: _vm.combobox,
       label: _vm.field.label,
+      autocomplete: _vm.field.autocomplete,
       required: _vm.field.required,
       readonly: _vm.field.readonly,
       disabled: _vm.field.disabled,
@@ -3127,7 +3130,9 @@ var __vue_render__$9 = function __vue_render__() {
 
   var _c = _vm._self._c || _h;
 
-  return _c("div", _vm._l(_vm.schema, function (section, index) {
+  return _c("v-form", {
+    staticClass: "v-form-generator"
+  }, _vm._l(_vm.schema, function (section, index) {
     return _c("div", {
       key: "vf-" + index
     }, [_c("v-card", {
