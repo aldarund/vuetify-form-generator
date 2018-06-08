@@ -1270,11 +1270,11 @@
 								sx:data.sx || 40,
 								sy:data.sy || 40
 							};
-
+							
 						var ctx = vCanvas.getContext('2d');
 							ctx.font = data.font || '20px sans-serif';
 							ctx.fillStyle = data.fillStyle || "#333";
-							ctx.strokeStyle = data.strokeStyle || "#333";
+							ctx.strokeStyle = data.strokeStyle || "#333";    
 	    					if(data.style == 'all'){
 								ctx.fillText(textData.text,textData.x,textData.y);
 								ctx.strokeText(textData.text,textData.sx,textData.sx);
@@ -1294,7 +1294,7 @@
 					_this.draw();
 				});
 			}
-		}
+		};
 
 	function styleInject(css, ref) {
 	  if ( ref === void 0 ) ref = {};
@@ -1446,7 +1446,7 @@
 	  __vue_module_identifier__$1,
 	  typeof __vue_create_injector__$1 !== 'undefined' ? __vue_create_injector__$1 : function () {},
 	  typeof __vue_create_injector_ssr__ !== 'undefined' ? __vue_create_injector_ssr__ : function () {}
-	)
+	);
 
 	var script$2 = {
 	  inject: ["$validator"],
@@ -1742,6 +1742,8 @@
 	      "data-vv-as": _vm.field.label,
 	      "data-vv-name": _vm.field.name,
 	      "data-vv-scope": _vm.scope,
+	      "prepend-icon": _vm.field.prependIcon,
+	      "append-icon": _vm.field.appendIcon,
 	      mask: _vm.field.mask,
 	      type: _vm.field.type,
 	      "data-vv-validate-on": "blur"
@@ -2205,7 +2207,9 @@
 	    ref: "picker",
 	    attrs: {
 	      min: _vm.min,
-	      max: _vm.max
+	      max: _vm.max,
+	      "prepend-icon": _vm.field.prependIcon,
+	      "append-icon": _vm.field.appendIcon
 	    },
 	    on: {
 	      change: _vm.save
@@ -2607,6 +2611,8 @@
 	      "data-vv-as": _vm.field.label,
 	      "data-vv-name": _vm.field.name,
 	      "data-vv-scope": _vm.scope,
+	      "prepend-icon": _vm.field.prependIcon,
+	      "append-icon": _vm.field.appendIcon,
 	      id: _vm.field.name,
 	      "item-text": "label",
 	      "item-value": "value"
@@ -2765,7 +2771,7 @@
 	      combobox: _vm.combobox,
 	      chips: _vm.combobox,
 	      label: _vm.field.label,
-	      autocomplete: _vm.field.autocomplete,
+	      "browser-autocomplete": _vm.field.autocomplete,
 	      required: _vm.field.required,
 	      readonly: _vm.field.readonly,
 	      disabled: _vm.field.disabled,
@@ -2776,6 +2782,8 @@
 	      "data-vv-as": _vm.field.label,
 	      "data-vv-name": _vm.field.name,
 	      "data-vv-scope": _vm.scope,
+	      "prepend-icon": _vm.field.prependIcon,
+	      "append-icon": _vm.field.appendIcon,
 	      id: _vm.field.name,
 	      "item-text": "label",
 	      "item-value": "value"

@@ -18,6 +18,8 @@
     :data-vv-as="field.label"
     :data-vv-name="field.name"
     :data-vv-scope="scope"
+    :prepend-icon="field.prependIcon"
+    :append-icon="field.appendIcon"
     :mask="field.mask"
     :type="field.type"
     data-vv-validate-on="blur"

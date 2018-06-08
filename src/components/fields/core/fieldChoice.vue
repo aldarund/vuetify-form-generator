@@ -15,6 +15,8 @@
     :data-vv-as="field.label"
     :data-vv-name="field.name"
     :data-vv-scope="scope"
+    :prepend-icon="field.prependIcon"
+    :append-icon="field.appendIcon"
     :id="field.name"
     item-text="label"
     item-value="value"

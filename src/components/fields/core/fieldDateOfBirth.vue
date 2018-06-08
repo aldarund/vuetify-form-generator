@@ -36,6 +36,8 @@
       v-model="localValue"
       :min="min"
       :max="max"
+      :prepend-icon="field.prependIcon"
+      :append-icon="field.appendIcon"
       @change="save"
     />
   </v-menu>
