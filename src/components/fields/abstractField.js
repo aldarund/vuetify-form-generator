@@ -43,7 +43,7 @@ export default {
       return this.veeField &&
         (this.veeField.dirty || this.veeField.validated) &&
         this.errors.has(this.veeFieldName)
-        ? this.errors.collect(this.field.name)
+        ? this.errors.collect(this.veeFieldName)
         : undefined
     },
     veeField() {
