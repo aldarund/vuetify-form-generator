@@ -5,17 +5,23 @@
       :field="field"
       :scope="scope"
       :value="value"
-      @upd="onUpd"/>
+      @upd="onUpd"
+    />
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import * as coreFields from "./fields/core"
-let fieldComponents = {}
-Object.keys(coreFields).forEach(key => {
-  coreFields[key].fieldTypes.forEach(fieldType => {
-    fieldComponents[fieldType] = coreFields[key]
+const requireComponent = require.context(
+  "./fields/core",
+  false,
+  /field[\w-]+\.vue$/
+)
+const fieldComponents = {}
+
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+  componentConfig.default.fieldTypes.forEach(fieldType => {
+    fieldComponents[fieldType] = componentConfig.default
   })
 })
 

@@ -2,18 +2,21 @@
   <v-form class="v-form-generator">
     <div
       v-for="(section, index) in schema"
-      :key="`vf-${index}`">
+      :key="`vf-${index}`"
+    >
       <v-card flat>
         <v-card-title>{{ section.label }}</v-card-title>
         <v-card-text>
           <div
             v-for="field in section.fields"
-            :key="field.name">
+            :key="field.name"
+          >
             <v-form-generator-field
               :field="field"
               :value="model[field.name] || field.value"
               :scope="validationScope"
-              @upd="onInput"/>
+              @upd="onInput"
+            />
           </div>
         </v-card-text>
       </v-card>

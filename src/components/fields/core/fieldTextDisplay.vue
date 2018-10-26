@@ -1,5 +1,5 @@
 <template>
-  <div v-html="field.label"/>
+  <div v-html="field.label" />
 </template>
 <script>
 import abstractField from "../abstractField"

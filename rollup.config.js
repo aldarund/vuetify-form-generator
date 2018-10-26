@@ -7,9 +7,8 @@ import json from "rollup-plugin-json"
 import license from "rollup-plugin-license"
 import resolve from "rollup-plugin-node-resolve"
 import replace from "rollup-plugin-replace"
-import { uglify } from "rollup-plugin-uglify"
+import { terser } from "rollup-plugin-terser"
 import VuePlugin from "rollup-plugin-vue"
-import { minify } from "uglify-es"
 import postcss from "rollup-plugin-postcss"
 import pfm from "postcss-font-magician"
 
@@ -109,7 +108,7 @@ function genConfig(name) {
 
     // minify on production targets
     if (opts.env === "production") {
-      config.plugins.push(uglify({}, minify))
+      config.plugins.push(terser({}))
     }
   }
 

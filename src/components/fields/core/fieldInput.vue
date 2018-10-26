@@ -1,7 +1,8 @@
 <template>
   <v-text-field
-    v-validate="field.validate"
+    :id="field.name"
     v-model.trim="localValue"
+    v-validate="field.validate"
     :label="field.label"
     :autocomplete="field.autocomplete"
     :required="field.required"
@@ -10,7 +11,6 @@
     :disabled="field.disabled"
     :placeholder="field.placeholder"
     :name="field.name"
-    :id="field.name"
     :error="errors.has(veeFieldName)"
     :error-messages="errorMessages"
     :multi-line="field.field_id === 'multi_line'"

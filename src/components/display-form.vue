@@ -2,7 +2,8 @@
   <div class="v-display-form">
     <div
       v-for="(section, index) in form.sections"
-      :key="`vf-${index}`">
+      :key="`vf-${index}`"
+    >
       <v-card flat>
         <v-card-title>{{ section.label }}</v-card-title>
         <v-card-text>
@@ -13,16 +14,19 @@
               row
               wrap
               pb-2
-              pt-2>
+              pt-2
+            >
               <template v-if="field.field_id === 'signature'">
                 <v-flex
                   v-if="field.value.indexOf('data:image') !== -1"
-                  xs12>
+                  xs12
+                >
                   <img :src="field.value">
                 </v-flex>
                 <v-flex
                   v-else
-                  class="signature-text">
+                  class="signature-text"
+                >
                   <strong>
                     {{ field.value }}
                   </strong>
@@ -33,17 +37,20 @@
                   xs12
                   sm6
                   class="headline"
-                  v-html="field.label"/>
+                  v-html="field.label"
+                />
               </template>
               <template v-else-if="['choice', 'state', 'combobox'].indexOf(field.field_id) !== -1">
                 <v-flex
                   xs12
-                  sm6>
+                  sm6
+                >
                   {{ field.label }}
                 </v-flex>
                 <v-flex
                   xs12
-                  sm6>
+                  sm6
+                >
                   <strong>
                     {{ getChoiceValue(field) }}
                   </strong>
@@ -52,12 +59,14 @@
               <template v-else>
                 <v-flex
                   xs12
-                  sm6>
+                  sm6
+                >
                   {{ field.label }}
                 </v-flex>
                 <v-flex
                   xs12
-                  sm6>
+                  sm6
+                >
                   <strong>
                     {{ field.value }}
                   </strong>

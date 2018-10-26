@@ -1,7 +1,7 @@
 <template>
   <v-menu
-    :close-on-content-click="true"
     v-model="menu"
+    :close-on-content-click="true"
     :nudge-right="40"
     lazy
     transition="scale-transition"
@@ -28,18 +28,21 @@
       no-title 
       scrollable 
       actions
-      @input="setDate($event)">
+      @input="setDate($event)"
+    >
       <template slot-scope="{ save, cancel }">
         <v-card-actions>
-          <v-spacer/>
+          <v-spacer />
           <v-btn 
             flat 
             color="primary" 
-            @click="cancel">Cancel</v-btn>
+            @click="cancel"
+          >Cancel</v-btn>
           <v-btn 
             flat 
             color="primary" 
-            @click="save">OK</v-btn>
+            @click="save"
+          >OK</v-btn>
         </v-card-actions>
       </template>
     </v-date-picker>

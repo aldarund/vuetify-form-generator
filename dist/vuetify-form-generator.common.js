@@ -12,10 +12,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var SignaturePad = _interopDefault(require('signature_pad'));
-
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -788,1562 +784,27 @@ for (var collections = _objectKeys(DOMIterables), i = 0; i < collections.length;
   }
 }
 
-var abstractField = {
-  props: {
-    field: {
-      type: Object,
-      required: true
-    },
-    value: {
-      type: String,
-      default: null,
-      required: false
-    },
-    scope: {
-      type: String,
-      default: null,
-      required: false
-    }
-  },
-  data: function data() {
-    return {
-      localValue: this.value || null,
-      delay: 600
-    };
-  },
-  mounted: function mounted() {
-    this.onInput();
-  },
-  watch: {
-    value: {
-      handler: function handler(v) {
-        this.localValue = v;
-      }
-    }
-  },
-  computed: {
-    veeFieldName: function veeFieldName() {
-      if (this.scope) {
-        return "".concat(this.scope, ".").concat(this.field.name);
-      } else {
-        return this.field.name;
-      }
-    },
-    errorMessages: function errorMessages() {
-      return this.veeField && (this.veeField.dirty || this.veeField.validated) && this.errors.has(this.veeFieldName) ? this.errors.collect(this.veeFieldName) : undefined;
-    },
-    veeField: function veeField() {
-      if (this.scope) {
-        return (this.fields["$" + this.scope] || {})[this.field.name];
-      } else {
-        return this.fields[this.field.name];
-      }
-    }
-  },
-  methods: {
-    onBlur: function onBlur() {
-      this.$emit("blur");
-    },
-    onChange: function onChange() {
-      this.$emit("change");
-    },
-    onFocus: function onFocus() {
-      this.$emit("focus");
-    },
-    onInput: function onInput() {
-      this.$emit("upd", this.localValue, this.field.name);
-    }
-  }
-};
-
 //
-var script = {
-  mixins: [abstractField],
-  fieldTypes: ["text_display"]
-};
-
-/* script */
-            const __vue_script__ = script;
-            
-/* template */
-var __vue_render__ = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", { domProps: { innerHTML: _vm._s(_vm.field.label) } })
-};
-var __vue_staticRenderFns__ = [];
-__vue_render__._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__ = undefined;
-  /* scoped */
-  const __vue_scope_id__ = undefined;
-  /* module identifier */
-  const __vue_module_identifier__ = undefined;
-  /* functional template */
-  const __vue_is_functional_template__ = false;
-  /* component normalizer */
-  function __vue_normalize__(
-    template, style, script$$1,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldTextDisplay.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport7 = __vue_normalize__(
-    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-    __vue_inject_styles__,
-    __vue_script__,
-    __vue_scope_id__,
-    __vue_is_functional_template__,
-    __vue_module_identifier__,
-    undefined,
-    undefined
-  );
-
 //
-	var script$1 = {
-		name:"vueSignature",
-		props:{
-			sigOption: {
-				type:Object,
-				default:()=>{
-					return {
-						backgroundColor:'rgb(255,255,255)',
-						penColor : 'rgb(0, 0, 0)'
-					}
-				},
-			},
-			w:{
-				type:String,
-				default:"100%"
-			},
-			h:{
-				type:String,
-				default:"100%"
-			},
-			clearOnResize:{
-				type:Boolean,
-				default:false
-			},
-			waterMark:{
-				type:Object,
-				default:()=>{
-					return {}
-				}
-			}
-		},
-		data(){
-			return {
-				sig:()=>{},
-				option:{
-					backgroundColor:'rgb(255,255,255)',
-					penColor : 'rgb(0, 0, 0)'
-				},
-				uid:""
-			}
-		},
-		created(){
-			var _this = this;
-			this.uid = "canvas" + _this._uid;
-			var sigOptions = Object.keys(_this.sigOption);
-			for(var item of sigOptions){
-				_this.option[item] = _this.sigOption[item];
-			}
-		},
-		methods:{
-			draw(){
-				var _this = this;
-				var canvas = document.getElementById(_this.uid);
-				_this.sig = new SignaturePad(canvas,_this.option);
-				function resizeCanvas() {
-					var url;
-					if(!_this.isEmpty()){
-						url = _this.save();
-					}
-					var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-					canvas.width = canvas.offsetWidth * ratio;
-					canvas.height = canvas.offsetHeight * ratio;
-					canvas.getContext("2d").scale(ratio, ratio);
-					_this.clear();
-					!_this.clearOnResize && url !== undefined && _this.fromDataURL(url);
-					_this.addWaterMark(_this.waterMark);
-				}
-				window.addEventListener("resize", resizeCanvas);
-				resizeCanvas();
-			},
-			clear(){
-				var _this = this;
-				_this.sig.clear();
-			},
-			save(format){
-				var _this = this;
-				return format ? _this.sig.toDataURL(format) :  _this.sig.toDataURL()
-				// signaturePad.toDataURL(); // save image as PNG
-				// signaturePad.toDataURL("image/jpeg"); // save image as JPEG
-				// signaturePad.toDataURL("image/svg+xml"); // save image as SVG
-			},
-			fromDataURL(url){
-				var _this = this;
-				_this.sig.fromDataURL(url);
-			},
-			isEmpty(){
-				var _this = this;
-				return _this.sig.isEmpty();
-			},
-			undo(){
-				var _this = this;
-				var data = _this.sig.toData();
-				if(data){
-					data.pop();
-					_this.sig.fromData(data);
-				}
-			},
-			addWaterMark(data){
-				var _this = this;
-				if(!(Object.prototype.toString.call(data) == '[object Object]')){
-					throw new Error("Expected Object, got "+typeof data+".")
-				}else{
-					var vCanvas = document.getElementById(_this.uid);
-
-					var textData = {
-							text:data.text || '',
-							x:data.x || 20,
-							y:data.y || 20,
-							sx:data.sx || 40,
-							sy:data.sy || 40
-						};
-						
-					var ctx = vCanvas.getContext('2d');
-						ctx.font = data.font || '20px sans-serif';
-						ctx.fillStyle = data.fillStyle || "#333";
-						ctx.strokeStyle = data.strokeStyle || "#333";    
-    					if(data.style == 'all'){
-							ctx.fillText(textData.text,textData.x,textData.y);
-							ctx.strokeText(textData.text,textData.sx,textData.sx);
-						}else if(data.style == 'stroke'){
-							ctx.strokeText(textData.text,textData.sx,textData.sx);
-						}else{
-							ctx.fillText(textData.text,textData.x,textData.y);
-						}
-
-					_this.sig._isEmpty = false;
-				}
-			}
-		},
-		mounted(){
-			var _this = this;
-			this.$nextTick(() => {
-				_this.draw();
-			});
-		}
-	};
-
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = "\ncanvas {\n\twidth: 100%;\n\theight: 100%;\n}\n";
-styleInject(css);
-
-/* script */
-            const __vue_script__$1 = script$1;
-/* template */
-var __vue_render__$1 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", { style: { width: _vm.w, height: _vm.h } }, [
-    _c("canvas", {
-      staticClass: "canvas",
-      attrs: { id: _vm.uid, "data-uid": _vm.uid }
-    })
-  ])
-};
-var __vue_staticRenderFns__$1 = [];
-__vue_render__$1._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$1 = undefined;
-  /* scoped */
-  const __vue_scope_id__$1 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$1 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$1 = false;
-  /* component normalizer */
-  function __vue_normalize__$1(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\node_modules\\vue-signature\\src\\lib\\vue-signature.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var VueSignature = __vue_normalize__$1(
-    { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
-    __vue_inject_styles__$1,
-    __vue_script__$1,
-    __vue_scope_id__$1,
-    __vue_is_functional_template__$1,
-    __vue_module_identifier__$1,
-    undefined,
-    undefined
-  );
-
 //
-var script$2 = {
-  inject: ["$validator"],
-  components: {
-    "vue-signature": VueSignature
-  },
-  mixins: [abstractField],
-  fieldTypes: ["signature"],
-  data: function data() {
-    var _this = this;
-    return {
-      mode: "graph",
-      textSignature: null,
-      option: {
-        onEnd: function onEnd() {
-          return _this.save();
-        }
-      }
-    };
-  },
-  methods: {
-    save: function save() {
-      var sign = this.$refs.signature.save();
-      this.$emit("upd", sign, this.field.name);
-    },
-    onTextSignatureInput: function onTextSignatureInput() {
-      this.$emit("upd", this.textSignature, this.field.name);
-    },
-    typeSignature: function typeSignature() {
-      this.mode = "text";
-      this.onTextSignatureInput();
-    },
-    drawSignature: function drawSignature() {
-      this.mode = "graph";
-      this.save();
-    },
-    clear: function clear() {
-      this.$refs.signature.clear();
-      this.$emit("upd", "", this.field.name);
-    }
-  }
-};
-
-var css$1 = "@font-face {\n  font-family: Arizonia;\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Arizonia Regular\"),local(Arizonia-Regular),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqg.eot?#) format(\"eot\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqw.woff2) format(\"woff2\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqo.woff) format(\"woff\");\n}\n.signature-text[data-v-07c301c1] {\n  font-family: Arizonia, sans-serif;\n  font-size: 30px;\n}\n.v-label[data-v-07c301c1] {\n  position: relative;\n  cursor: inherit;\n}\n.signature[data-v-07c301c1] {\n  border: grey dashed 1px;\n}\n";
-styleInject(css$1);
-
-/* script */
-            const __vue_script__$2 = script$2;
-/* template */
-var __vue_render__$2 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", [
-    _vm.mode === "graph"
-      ? _c(
-          "div",
-          [
-            _vm.field.label
-              ? _c(
-                  "label",
-                  { staticClass: "v-label", attrs: { for: "field.name" } },
-                  [_vm._v(_vm._s(_vm.field.label))]
-                )
-              : _vm._e(),
-            _c("vue-signature", {
-              directives: [
-                {
-                  name: "validate",
-                  rawName: "v-validate",
-                  value: _vm.field.validate,
-                  expression: "field.validate"
-                }
-              ],
-              ref: "signature",
-              staticClass: "signature",
-              attrs: {
-                "data-vv-scope": _vm.scope,
-                "data-vv-as": _vm.field.label,
-                "data-vv-name": _vm.field.name,
-                "sig-option": _vm.option
-              },
-              model: {
-                value: _vm.localValue,
-                callback: function($$v) {
-                  _vm.localValue = $$v;
-                },
-                expression: "localValue"
-              }
-            }),
-            _vm.errors.has(_vm.veeFieldName)
-              ? _c("div", { staticClass: "v-text-field__details" }, [
-                  _c(
-                    "div",
-                    { staticClass: "v-messages error--text" },
-                    _vm._l(_vm.errorMessages, function(error) {
-                      return _c(
-                        "div",
-                        { key: error, staticClass: "v-messages__wrapper" },
-                        [
-                          _c("div", { staticClass: "v-messages__message" }, [
-                            _vm._v(_vm._s(error))
-                          ])
-                        ]
-                      )
-                    })
-                  )
-                ])
-              : _vm._e(),
-            _c(
-              "a",
-              {
-                staticClass: "switch-signature",
-                on: {
-                  click: function($event) {
-                    _vm.typeSignature();
-                  }
-                }
-              },
-              [_vm._v("Prefer to type your signature? Click here")]
-            ),
-            _c(
-              "v-btn",
-              {
-                on: {
-                  click: function($event) {
-                    _vm.clear();
-                  }
-                }
-              },
-              [_vm._v("clear")]
-            )
-          ],
-          1
-        )
-      : _vm.mode === "text"
-        ? _c(
-            "div",
-            [
-              _c("div", { staticClass: "signature-text" }, [
-                _vm._v(_vm._s(_vm.textSignature))
-              ]),
-              _c("v-text-field", {
-                directives: [
-                  {
-                    name: "validate",
-                    rawName: "v-validate",
-                    value: _vm.field.validate,
-                    expression: "field.validate"
-                  }
-                ],
-                attrs: {
-                  label: _vm.field.label,
-                  required: _vm.field.required,
-                  readonly: _vm.field.editable,
-                  disabled: _vm.field.disabled,
-                  placeholder: _vm.field.placeholder,
-                  "data-vv-as": _vm.field.label,
-                  "data-vv-name": _vm.field.name,
-                  "data-vv-scope": _vm.scope,
-                  name: _vm.field.name,
-                  id: _vm.field.name,
-                  error: _vm.errors.has(_vm.veeFieldName),
-                  "error-messages": _vm.errorMessages
-                },
-                on: { input: _vm.onTextSignatureInput },
-                model: {
-                  value: _vm.textSignature,
-                  callback: function($$v) {
-                    _vm.textSignature =
-                      typeof $$v === "string" ? $$v.trim() : $$v;
-                  },
-                  expression: "textSignature"
-                }
-              }),
-              _c(
-                "a",
-                {
-                  staticClass: "switch-signature",
-                  on: {
-                    click: function($event) {
-                      _vm.drawSignature();
-                    }
-                  }
-                },
-                [_vm._v("Prefer to draw your signature? Click here")]
-              )
-            ],
-            1
-          )
-        : _vm._e()
-  ])
-};
-var __vue_staticRenderFns__$2 = [];
-__vue_render__$2._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$2 = undefined;
-  /* scoped */
-  const __vue_scope_id__$2 = "data-v-07c301c1";
-  /* module identifier */
-  const __vue_module_identifier__$2 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$2 = false;
-  /* component normalizer */
-  function __vue_normalize__$2(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldSignature.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport6 = __vue_normalize__$2(
-    { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
-    __vue_inject_styles__$2,
-    __vue_script__$2,
-    __vue_scope_id__$2,
-    __vue_is_functional_template__$2,
-    __vue_module_identifier__$2,
-    undefined,
-    undefined
-  );
-
 //
-var script$3 = {
-  inject: ["$validator"],
-  mixins: [abstractField],
-  fieldTypes: ["single_line", "multi_line", "unit_field", "ssn", "phone", "email"]
-};
-
-/* script */
-            const __vue_script__$3 = script$3;
-            
-/* template */
-var __vue_render__$3 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("v-text-field", {
-    directives: [
-      {
-        name: "validate",
-        rawName: "v-validate",
-        value: _vm.field.validate,
-        expression: "field.validate"
-      }
-    ],
-    attrs: {
-      label: _vm.field.label,
-      autocomplete: _vm.field.autocomplete,
-      required: _vm.field.required,
-      maxlength: _vm.field.maxlength,
-      readonly: _vm.field.editable,
-      disabled: _vm.field.disabled,
-      placeholder: _vm.field.placeholder,
-      name: _vm.field.name,
-      id: _vm.field.name,
-      error: _vm.errors.has(_vm.veeFieldName),
-      "error-messages": _vm.errorMessages,
-      "multi-line": _vm.field.field_id === "multi_line",
-      "data-vv-delay": _vm.field.delay,
-      "data-vv-as": _vm.field.label,
-      "data-vv-name": _vm.field.name,
-      "data-vv-scope": _vm.scope,
-      "prepend-icon": _vm.field.prependIcon,
-      "append-icon": _vm.field.appendIcon,
-      mask: _vm.field.mask,
-      type: _vm.field.type,
-      "data-vv-validate-on": "blur"
-    },
-    on: {
-      blur: _vm.onBlur,
-      change: _vm.onChange,
-      focus: _vm.onFocus,
-      input: _vm.onInput
-    },
-    model: {
-      value: _vm.localValue,
-      callback: function($$v) {
-        _vm.localValue = typeof $$v === "string" ? $$v.trim() : $$v;
-      },
-      expression: "localValue"
-    }
-  })
-};
-var __vue_staticRenderFns__$3 = [];
-__vue_render__$3._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$3 = undefined;
-  /* scoped */
-  const __vue_scope_id__$3 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$3 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$3 = false;
-  /* component normalizer */
-  function __vue_normalize__$3(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldInput.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport5 = __vue_normalize__$3(
-    { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
-    __vue_inject_styles__$3,
-    __vue_script__$3,
-    __vue_scope_id__$3,
-    __vue_is_functional_template__$3,
-    __vue_module_identifier__$3,
-    undefined,
-    undefined
-  );
-
-var _stringRepeat = function repeat(count) {
-  var str = String(_defined(this));
-  var res = '';
-  var n = _toInteger(count);
-  if (n < 0 || n == Infinity) throw RangeError("Count can't be negative");
-  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) res += str;
-  return res;
-};
-
-// https://github.com/tc39/proposal-string-pad-start-end
-
-
-
-
-var _stringPad = function (that, maxLength, fillString, left) {
-  var S = String(_defined(that));
-  var stringLength = S.length;
-  var fillStr = fillString === undefined ? ' ' : String(fillString);
-  var intMaxLength = _toLength(maxLength);
-  if (intMaxLength <= stringLength || fillStr == '') return S;
-  var fillLen = intMaxLength - stringLength;
-  var stringFiller = _stringRepeat.call(fillStr, Math.ceil(fillLen / fillStr.length));
-  if (stringFiller.length > fillLen) stringFiller = stringFiller.slice(0, fillLen);
-  return left ? stringFiller + S : S + stringFiller;
-};
-
-var navigator = _global.navigator;
-
-var _userAgent = navigator && navigator.userAgent || '';
-
-// https://github.com/tc39/proposal-string-pad-start-end
-
-
-
-
-// https://github.com/zloirock/core-js/issues/280
-_export(_export.P + _export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(_userAgent), 'String', {
-  padStart: function padStart(maxLength /* , fillString = ' ' */) {
-    return _stringPad(this, maxLength, arguments.length > 1 ? arguments[1] : undefined, true);
-  }
-});
-
-var _fixReWks = function (KEY, length, exec) {
-  var SYMBOL = _wks(KEY);
-  var fns = exec(_defined, SYMBOL, ''[KEY]);
-  var strfn = fns[0];
-  var rxfn = fns[1];
-  if (_fails(function () {
-    var O = {};
-    O[SYMBOL] = function () { return 7; };
-    return ''[KEY](O) != 7;
-  })) {
-    _redefine(String.prototype, KEY, strfn);
-    _hide(RegExp.prototype, SYMBOL, length == 2
-      // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
-      // 21.2.5.11 RegExp.prototype[@@split](string, limit)
-      ? function (string, arg) { return rxfn.call(string, this, arg); }
-      // 21.2.5.6 RegExp.prototype[@@match](string)
-      // 21.2.5.9 RegExp.prototype[@@search](string)
-      : function (string) { return rxfn.call(string, this); }
-    );
-  }
-};
-
-// 7.2.8 IsRegExp(argument)
-
-
-var MATCH = _wks('match');
-var _isRegexp = function (it) {
-  var isRegExp;
-  return _isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : _cof(it) == 'RegExp');
-};
-
-// @@split logic
-_fixReWks('split', 2, function (defined, SPLIT, $split) {
-  var isRegExp = _isRegexp;
-  var _split = $split;
-  var $push = [].push;
-  var $SPLIT = 'split';
-  var LENGTH = 'length';
-  var LAST_INDEX = 'lastIndex';
-  if (
-    'abbc'[$SPLIT](/(b)*/)[1] == 'c' ||
-    'test'[$SPLIT](/(?:)/, -1)[LENGTH] != 4 ||
-    'ab'[$SPLIT](/(?:ab)*/)[LENGTH] != 2 ||
-    '.'[$SPLIT](/(.?)(.?)/)[LENGTH] != 4 ||
-    '.'[$SPLIT](/()()/)[LENGTH] > 1 ||
-    ''[$SPLIT](/.?/)[LENGTH]
-  ) {
-    var NPCG = /()??/.exec('')[1] === undefined; // nonparticipating capturing group
-    // based on es5-shim implementation, need to rework it
-    $split = function (separator, limit) {
-      var string = String(this);
-      if (separator === undefined && limit === 0) return [];
-      // If `separator` is not a regex, use native split
-      if (!isRegExp(separator)) return _split.call(string, separator, limit);
-      var output = [];
-      var flags = (separator.ignoreCase ? 'i' : '') +
-                  (separator.multiline ? 'm' : '') +
-                  (separator.unicode ? 'u' : '') +
-                  (separator.sticky ? 'y' : '');
-      var lastLastIndex = 0;
-      var splitLimit = limit === undefined ? 4294967295 : limit >>> 0;
-      // Make `global` and avoid `lastIndex` issues by working with a copy
-      var separatorCopy = new RegExp(separator.source, flags + 'g');
-      var separator2, match, lastIndex, lastLength, i;
-      // Doesn't need flags gy, but they don't hurt
-      if (!NPCG) separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
-      while (match = separatorCopy.exec(string)) {
-        // `separatorCopy.lastIndex` is not reliable cross-browser
-        lastIndex = match.index + match[0][LENGTH];
-        if (lastIndex > lastLastIndex) {
-          output.push(string.slice(lastLastIndex, match.index));
-          // Fix browsers whose `exec` methods don't consistently return `undefined` for NPCG
-          // eslint-disable-next-line no-loop-func
-          if (!NPCG && match[LENGTH] > 1) match[0].replace(separator2, function () {
-            for (i = 1; i < arguments[LENGTH] - 2; i++) if (arguments[i] === undefined) match[i] = undefined;
-          });
-          if (match[LENGTH] > 1 && match.index < string[LENGTH]) $push.apply(output, match.slice(1));
-          lastLength = match[0][LENGTH];
-          lastLastIndex = lastIndex;
-          if (output[LENGTH] >= splitLimit) break;
-        }
-        if (separatorCopy[LAST_INDEX] === match.index) separatorCopy[LAST_INDEX]++; // Avoid an infinite loop
-      }
-      if (lastLastIndex === string[LENGTH]) {
-        if (lastLength || !separatorCopy.test('')) output.push('');
-      } else output.push(string.slice(lastLastIndex));
-      return output[LENGTH] > splitLimit ? output.slice(0, splitLimit) : output;
-    };
-  // Chakra, V8
-  } else if ('0'[$SPLIT](undefined, 0)[LENGTH]) {
-    $split = function (separator, limit) {
-      return separator === undefined && limit === 0 ? [] : _split.call(this, separator, limit);
-    };
-  }
-  // 21.1.3.17 String.prototype.split(separator, limit)
-  return [function split(separator, limit) {
-    var O = defined(this);
-    var fn = separator == undefined ? undefined : separator[SPLIT];
-    return fn !== undefined ? fn.call(separator, O, limit) : $split.call(String(O), separator, limit);
-  }, $split];
-});
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-var script$4 = {
-  mixins: [abstractField],
-  inject: ["$validator"],
-  fieldTypes: ["date_of_birth"],
-  data: function data() {
-    return {
-      menu: false,
-      dateFormatted: null
-    };
-  },
-  computed: {
-    max: function max() {
-      return this.field.min_age ? new Date(new Date().getFullYear() - this.field.min_age, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10) : null;
-    },
-    min: function min() {
-      return this.field.max_age ? new Date(new Date().getFullYear() - this.field.max_age, new Date().getMonth(), new Date().getDate()).toISOString().substr(0, 10) : null;
-    }
-  },
-  watch: {
-    menu: function menu(val) {
-      var _this = this;
-
-      val && this.$nextTick(function () {
-        return _this.$refs.picker.activePicker = "YEAR";
-      });
-    }
-  },
-  methods: {
-    save: function save(date) {
-      this.$refs.menu.save(date);
-      this.$refs[this.field.name].$emit("input", this.formatDate(date));
-    },
-    formatDate: function formatDate(date) {
-      if (!date) {
-        return null;
-      }
-
-      var _date$split = date.split("-"),
-          _date$split2 = _slicedToArray(_date$split, 3),
-          year = _date$split2[0],
-          month = _date$split2[1],
-          day = _date$split2[2];
-
-      return "".concat(month, "/").concat(day, "/").concat(year);
-    },
-    parseDate: function parseDate(date) {
-      if (!date) {
-        return null;
-      }
-
-      var _date$split3 = date.split("/"),
-          _date$split4 = _slicedToArray(_date$split3, 3),
-          month = _date$split4[0],
-          day = _date$split4[1],
-          year = _date$split4[2];
-
-      return "".concat(year, "-").concat(month.padStart(2, "0"), "-").concat(day.padStart(2, "0"));
-    }
-  }
-};
-
-/* script */
-            const __vue_script__$4 = script$4;
-            
-/* template */
-var __vue_render__$4 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(
-    "v-menu",
-    {
-      ref: "menu",
-      attrs: {
-        "close-on-content-click": false,
-        "nudge-right": 40,
-        lazy: "",
-        transition: "scale-transition",
-        "offset-y": "",
-        "full-width": "",
-        "min-width": "290px"
-      },
-      model: {
-        value: _vm.menu,
-        callback: function($$v) {
-          _vm.menu = $$v;
-        },
-        expression: "menu"
-      }
-    },
-    [
-      _c("v-text-field", {
-        directives: [
-          {
-            name: "validate",
-            rawName: "v-validate",
-            value: _vm.field.validate,
-            expression: "field.validate"
-          }
-        ],
-        ref: _vm.field.name,
-        attrs: {
-          slot: "activator",
-          error: _vm.errors.has(_vm.veeFieldName),
-          "error-messages": _vm.errorMessages,
-          label: _vm.field.label,
-          required: _vm.field.required,
-          disabled: _vm.field.disabled,
-          "data-vv-as": _vm.field.label,
-          "data-vv-scope": _vm.scope,
-          placeholder: _vm.field.placeholder,
-          name: _vm.field.name,
-          readonly: "",
-          "data-vv-validate-on": "input"
-        },
-        on: {
-          blur: function($event) {
-            _vm.localValue = _vm.parseDate(_vm.dateFormatted);
-          },
-          change: _vm.onChange,
-          focus: _vm.onFocus,
-          input: _vm.onInput
-        },
-        slot: "activator",
-        model: {
-          value: _vm.dateFormatted,
-          callback: function($$v) {
-            _vm.dateFormatted = $$v;
-          },
-          expression: "dateFormatted"
-        }
-      }),
-      _c("v-date-picker", {
-        ref: "picker",
-        attrs: {
-          min: _vm.min,
-          max: _vm.max,
-          "prepend-icon": _vm.field.prependIcon,
-          "append-icon": _vm.field.appendIcon
-        },
-        on: { change: _vm.save },
-        model: {
-          value: _vm.localValue,
-          callback: function($$v) {
-            _vm.localValue = $$v;
-          },
-          expression: "localValue"
-        }
-      })
-    ],
-    1
-  )
-};
-var __vue_staticRenderFns__$4 = [];
-__vue_render__$4._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$4 = undefined;
-  /* scoped */
-  const __vue_scope_id__$4 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$4 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$4 = false;
-  /* component normalizer */
-  function __vue_normalize__$4(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldDateOfBirth.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport4 = __vue_normalize__$4(
-    { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
-    __vue_inject_styles__$4,
-    __vue_script__$4,
-    __vue_scope_id__$4,
-    __vue_is_functional_template__$4,
-    __vue_module_identifier__$4,
-    undefined,
-    undefined
-  );
-
-var script$5 = {
-  mixins: [abstractField],
-  fieldTypes: ["date"],
-  data: function data() {
-    return {
-      menu: false,
-      dateFormatted: null
-    };
-  },
-  methods: {
-    setDate: function setDate(date) {
-      this.dateFormatted = this.formatDate(date);
-      this.onInput();
-    },
-    formatDate: function formatDate(date) {
-      if (!date) {
-        return null;
-      }
-
-      var _date$split = date.split("-"),
-          _date$split2 = _slicedToArray(_date$split, 3),
-          year = _date$split2[0],
-          month = _date$split2[1],
-          day = _date$split2[2];
-
-      return "".concat(month, "/").concat(day, "/").concat(year);
-    },
-    parseDate: function parseDate(date) {
-      if (!date) {
-        return null;
-      }
-
-      var _date$split3 = date.split("/"),
-          _date$split4 = _slicedToArray(_date$split3, 3),
-          month = _date$split4[0],
-          day = _date$split4[1],
-          year = _date$split4[2];
-
-      return "".concat(year, "-").concat(month.padStart(2, "0"), "-").concat(day.padStart(2, "0"));
-    }
-  }
-};
-
-/* script */
-            const __vue_script__$5 = script$5;
-            
-/* template */
-var __vue_render__$5 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(
-    "v-menu",
-    {
-      attrs: {
-        "close-on-content-click": true,
-        "nudge-right": 40,
-        lazy: "",
-        transition: "scale-transition",
-        "offset-y": "",
-        "full-width": "",
-        "max-width": "290px",
-        "min-width": "290px"
-      },
-      model: {
-        value: _vm.menu,
-        callback: function($$v) {
-          _vm.menu = $$v;
-        },
-        expression: "menu"
-      }
-    },
-    [
-      _c("v-text-field", {
-        attrs: {
-          slot: "activator",
-          label: _vm.field.label,
-          required: _vm.field.required,
-          disabled: _vm.field.disabled,
-          placeholder: _vm.field.placeholder,
-          readonly: ""
-        },
-        on: {
-          blur: function($event) {
-            _vm.localValue = _vm.parseDate(_vm.dateFormatted);
-          },
-          change: _vm.onChange,
-          focus: _vm.onFocus,
-          input: _vm.onInput
-        },
-        slot: "activator",
-        model: {
-          value: _vm.dateFormatted,
-          callback: function($$v) {
-            _vm.dateFormatted = $$v;
-          },
-          expression: "dateFormatted"
-        }
-      }),
-      _c("v-date-picker", {
-        attrs: { "no-title": "", scrollable: "", actions: "" },
-        on: {
-          input: function($event) {
-            _vm.setDate($event);
-          }
-        },
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function(ref) {
-              var save = ref.save;
-              var cancel = ref.cancel;
-              return [
-                _c(
-                  "v-card-actions",
-                  [
-                    _c("v-spacer"),
-                    _c(
-                      "v-btn",
-                      {
-                        attrs: { flat: "", color: "primary" },
-                        on: { click: cancel }
-                      },
-                      [_vm._v("Cancel")]
-                    ),
-                    _c(
-                      "v-btn",
-                      {
-                        attrs: { flat: "", color: "primary" },
-                        on: { click: save }
-                      },
-                      [_vm._v("OK")]
-                    )
-                  ],
-                  1
-                )
-              ]
-            }
-          }
-        ]),
-        model: {
-          value: _vm.localValue,
-          callback: function($$v) {
-            _vm.localValue = $$v;
-          },
-          expression: "localValue"
-        }
-      })
-    ],
-    1
-  )
-};
-var __vue_staticRenderFns__$5 = [];
-__vue_render__$5._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$5 = undefined;
-  /* scoped */
-  const __vue_scope_id__$5 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$5 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$5 = false;
-  /* component normalizer */
-  function __vue_normalize__$5(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldDate.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport3 = __vue_normalize__$5(
-    { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
-    __vue_inject_styles__$5,
-    __vue_script__$5,
-    __vue_scope_id__$5,
-    __vue_is_functional_template__$5,
-    __vue_module_identifier__$5,
-    undefined,
-    undefined
-  );
-
 //
-var script$6 = {
-  inject: ["$validator"],
-  mixins: [abstractField],
-  fieldTypes: ["choice"]
-};
-
-/* script */
-            const __vue_script__$6 = script$6;
-            
-/* template */
-var __vue_render__$6 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("v-select", {
-    directives: [
-      {
-        name: "validate",
-        rawName: "v-validate",
-        value: _vm.field.required && "required",
-        expression: "field.required && 'required'"
-      }
-    ],
-    attrs: {
-      items: _vm.field.choices,
-      label: _vm.field.label,
-      required: _vm.field.required,
-      readonly: _vm.field.readonly,
-      autocomplete: _vm.field.autocomplete,
-      disabled: _vm.field.disabled,
-      error: _vm.errors.has(_vm.veeFieldName),
-      "error-messages": _vm.errorMessages,
-      name: _vm.field.name,
-      "data-vv-delay": _vm.field.delay,
-      "data-vv-as": _vm.field.label,
-      "data-vv-name": _vm.field.name,
-      "data-vv-scope": _vm.scope,
-      "prepend-icon": _vm.field.prependIcon,
-      "append-icon": _vm.field.appendIcon,
-      id: _vm.field.name,
-      "item-text": "label",
-      "item-value": "value"
-    },
-    on: {
-      blur: _vm.onBlur,
-      change: _vm.onChange,
-      focus: _vm.onFocus,
-      input: _vm.onInput
-    },
-    model: {
-      value: _vm.localValue,
-      callback: function($$v) {
-        _vm.localValue = $$v;
-      },
-      expression: "localValue"
-    }
-  })
-};
-var __vue_staticRenderFns__$6 = [];
-__vue_render__$6._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$6 = undefined;
-  /* scoped */
-  const __vue_scope_id__$6 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$6 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$6 = false;
-  /* component normalizer */
-  function __vue_normalize__$6(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldChoice.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport2 = __vue_normalize__$6(
-    { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
-    __vue_inject_styles__$6,
-    __vue_script__$6,
-    __vue_scope_id__$6,
-    __vue_is_functional_template__$6,
-    __vue_module_identifier__$6,
-    undefined,
-    undefined
-  );
-
 //
-var script$7 = {
-  inject: ["$validator"],
-  mixins: [abstractField],
-  fieldTypes: ["autocomplete", "combobox"],
-  data: function data() {
-    return {
-      combobox: this.field.field_id === "combobox"
-    };
-  }
-};
+//
+//
+//
+//
+//
+//
+var coreFields = require.context("./fields/core", false, /field[\w-]+\.vue$/);
 
-/* script */
-            const __vue_script__$7 = script$7;
-            
-/* template */
-var __vue_render__$7 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("v-autocomplete", {
-    directives: [
-      {
-        name: "validate",
-        rawName: "v-validate",
-        value: _vm.field.required && "required",
-        expression: "field.required && 'required'"
-      }
-    ],
-    attrs: {
-      items: _vm.field.choices,
-      combobox: _vm.combobox,
-      chips: _vm.combobox,
-      label: _vm.field.label,
-      "browser-autocomplete": _vm.field.autocomplete,
-      required: _vm.field.required,
-      readonly: _vm.field.readonly,
-      disabled: _vm.field.disabled,
-      error: _vm.errors.has(_vm.veeFieldName),
-      "error-messages": _vm.errorMessages,
-      name: _vm.field.name,
-      "data-vv-delay": _vm.field.delay,
-      "data-vv-as": _vm.field.label,
-      "data-vv-name": _vm.field.name,
-      "data-vv-scope": _vm.scope,
-      "prepend-icon": _vm.field.prependIcon,
-      "append-icon": _vm.field.appendIcon,
-      id: _vm.field.name,
-      "item-text": "label",
-      "item-value": "value"
-    },
-    on: {
-      blur: _vm.onBlur,
-      change: _vm.onChange,
-      focus: _vm.onFocus,
-      input: _vm.onInput
-    },
-    model: {
-      value: _vm.localValue,
-      callback: function($$v) {
-        _vm.localValue = $$v;
-      },
-      expression: "localValue"
-    }
-  })
-};
-var __vue_staticRenderFns__$7 = [];
-__vue_render__$7._withStripped = true;
-
-  /* style */
-  const __vue_inject_styles__$7 = undefined;
-  /* scoped */
-  const __vue_scope_id__$7 = undefined;
-  /* module identifier */
-  const __vue_module_identifier__$7 = undefined;
-  /* functional template */
-  const __vue_is_functional_template__$7 = false;
-  /* component normalizer */
-  function __vue_normalize__$7(
-    template, style, script,
-    scope, functional, moduleIdentifier,
-    createInjector, createInjectorSSR
-  ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
-
-    // For security concerns, we use only base name in production mode.
-    component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\fields\\core\\fieldAutocomplete.vue";
-
-    if (!component.render) {
-      component.render = template.render;
-      component.staticRenderFns = template.staticRenderFns;
-      component._compiled = true;
-
-      if (functional) component.functional = true;
-    }
-
-    component._scopeId = scope;
-
-    return component
-  }
-  /* style inject */
-  
-  /* style inject SSR */
-  
-
-  
-  var _wcImport = __vue_normalize__$7(
-    { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
-    __vue_inject_styles__$7,
-    __vue_script__$7,
-    __vue_scope_id__$7,
-    __vue_is_functional_template__$7,
-    __vue_module_identifier__$7,
-    undefined,
-    undefined
-  );
-
-var coreFields = {};
-coreFields["FieldTextDisplay"] = _wcImport7;
-coreFields["FieldSignature"] = _wcImport6;
-coreFields["FieldInput"] = _wcImport5;
-coreFields["FieldDateOfBirth"] = _wcImport4;
-coreFields["FieldDate"] = _wcImport3;
-coreFields["FieldChoice"] = _wcImport2;
-coreFields["FieldAutocomplete"] = _wcImport;
 var fieldComponents = {};
 Object.keys(coreFields).forEach(function (key) {
   coreFields[key].fieldTypes.forEach(function (fieldType) {
     fieldComponents[fieldType] = coreFields[key];
   });
 });
-var script$8 = {
+var script = {
   name: "VFormGeneratorField",
   components: fieldComponents,
   props: {
@@ -2370,10 +831,10 @@ var script$8 = {
 };
 
 /* script */
-            const __vue_script__$8 = script$8;
+            const __vue_script__ = script;
             
 /* template */
-var __vue_render__$8 = function() {
+var __vue_render__ = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -2389,24 +850,24 @@ var __vue_render__$8 = function() {
     1
   )
 };
-var __vue_staticRenderFns__$8 = [];
-__vue_render__$8._withStripped = true;
+var __vue_staticRenderFns__ = [];
+__vue_render__._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$8 = undefined;
+  const __vue_inject_styles__ = undefined;
   /* scoped */
-  const __vue_scope_id__$8 = undefined;
+  const __vue_scope_id__ = undefined;
   /* module identifier */
-  const __vue_module_identifier__$8 = undefined;
+  const __vue_module_identifier__ = undefined;
   /* functional template */
-  const __vue_is_functional_template__$8 = false;
+  const __vue_is_functional_template__ = false;
   /* component normalizer */
-  function __vue_normalize__$8(
-    template, style, script,
+  function __vue_normalize__(
+    template, style, script$$1,
     scope, functional, moduleIdentifier,
     createInjector, createInjectorSSR
   ) {
-    const component = (typeof script === 'function' ? script.options : script) || {};
+    const component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
 
     // For security concerns, we use only base name in production mode.
     component.__file = "C:\\Dev\\PycharmProjects\\vuetify-form-generator\\src\\components\\form-field.vue";
@@ -2429,19 +890,19 @@ __vue_render__$8._withStripped = true;
   
 
   
-  var formField = __vue_normalize__$8(
-    { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
-    __vue_inject_styles__$8,
-    __vue_script__$8,
-    __vue_scope_id__$8,
-    __vue_is_functional_template__$8,
-    __vue_module_identifier__$8,
+  var formField = __vue_normalize__(
+    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+    __vue_inject_styles__,
+    __vue_script__,
+    __vue_scope_id__,
+    __vue_is_functional_template__,
+    __vue_module_identifier__,
     undefined,
     undefined
   );
 
 //
-var script$9 = {
+var script$1 = {
   name: "VuetifyFormGenerator",
   components: {
     "v-form-generator-field": formField
@@ -2500,10 +961,10 @@ var script$9 = {
 };
 
 /* script */
-            const __vue_script__$9 = script$9;
+            const __vue_script__$1 = script$1;
             
 /* template */
-var __vue_render__$9 = function() {
+var __vue_render__$1 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -2549,19 +1010,19 @@ var __vue_render__$9 = function() {
     })
   )
 };
-var __vue_staticRenderFns__$9 = [];
-__vue_render__$9._withStripped = true;
+var __vue_staticRenderFns__$1 = [];
+__vue_render__$1._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$9 = undefined;
+  const __vue_inject_styles__$1 = undefined;
   /* scoped */
-  const __vue_scope_id__$9 = undefined;
+  const __vue_scope_id__$1 = undefined;
   /* module identifier */
-  const __vue_module_identifier__$9 = undefined;
+  const __vue_module_identifier__$1 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$9 = false;
+  const __vue_is_functional_template__$1 = false;
   /* component normalizer */
-  function __vue_normalize__$9(
+  function __vue_normalize__$1(
     template, style, script,
     scope, functional, moduleIdentifier,
     createInjector, createInjectorSSR
@@ -2589,13 +1050,13 @@ __vue_render__$9._withStripped = true;
   
 
   
-  var VuetifyFormGenerator = __vue_normalize__$9(
-    { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
-    __vue_inject_styles__$9,
-    __vue_script__$9,
-    __vue_scope_id__$9,
-    __vue_is_functional_template__$9,
-    __vue_module_identifier__$9,
+  var VuetifyFormGenerator = __vue_normalize__$1(
+    { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
+    __vue_inject_styles__$1,
+    __vue_script__$1,
+    __vue_scope_id__$1,
+    __vue_is_functional_template__$1,
+    __vue_module_identifier__$1,
     undefined,
     undefined
   );
@@ -2770,7 +1231,16 @@ _addToUnscopables(KEY);
 //
 //
 //
-var script$a = {
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$2 = {
   name: "VuetifyDisplayForm",
   props: {
     form: {
@@ -2796,13 +1266,40 @@ var script$a = {
   }
 };
 
-var css$2 = "@font-face {\n  font-family: Arizonia;\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Arizonia Regular\"),local(Arizonia-Regular),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqg.eot?#) format(\"eot\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqw.woff2) format(\"woff2\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqo.woff) format(\"woff\");\n}\n.signature-text[data-v-bc91025e] {\n  font-family: Arizonia, sans-serif;\n  font-size: 30px;\n}\n.v-display-form .layout.row[data-v-bc91025e]:nth-child(2n) {\n  background-color: #f6f6f6;\n}\n";
-styleInject(css$2);
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = "@font-face {\n  font-family: Arizonia;\n  font-style: normal;\n  font-weight: 400;\n  src: local(\"Arizonia Regular\"),local(Arizonia-Regular),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqg.eot?#) format(\"eot\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqw.woff2) format(\"woff2\"),url(//fonts.gstatic.com/s/arizonia/v8/neIIzCemt4A5qa7mv5WBFqo.woff) format(\"woff\");\n}\n.signature-text[data-v-a4978520] {\n  font-family: Arizonia, sans-serif;\n  font-size: 30px;\n}\n.v-display-form .layout.row[data-v-a4978520]:nth-child(2n) {\n  background-color: #f6f6f6;\n}\n";
+styleInject(css);
 
 /* script */
-            const __vue_script__$a = script$a;
+            const __vue_script__$2 = script$2;
 /* template */
-var __vue_render__$a = function() {
+var __vue_render__$2 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -2935,19 +1432,19 @@ var __vue_render__$a = function() {
     })
   )
 };
-var __vue_staticRenderFns__$a = [];
-__vue_render__$a._withStripped = true;
+var __vue_staticRenderFns__$2 = [];
+__vue_render__$2._withStripped = true;
 
   /* style */
-  const __vue_inject_styles__$a = undefined;
+  const __vue_inject_styles__$2 = undefined;
   /* scoped */
-  const __vue_scope_id__$a = "data-v-bc91025e";
+  const __vue_scope_id__$2 = "data-v-a4978520";
   /* module identifier */
-  const __vue_module_identifier__$a = undefined;
+  const __vue_module_identifier__$2 = undefined;
   /* functional template */
-  const __vue_is_functional_template__$a = false;
+  const __vue_is_functional_template__$2 = false;
   /* component normalizer */
-  function __vue_normalize__$a(
+  function __vue_normalize__$2(
     template, style, script,
     scope, functional, moduleIdentifier,
     createInjector, createInjectorSSR
@@ -2975,13 +1472,13 @@ __vue_render__$a._withStripped = true;
   
 
   
-  var VuetifyDisplayForm = __vue_normalize__$a(
-    { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
-    __vue_inject_styles__$a,
-    __vue_script__$a,
-    __vue_scope_id__$a,
-    __vue_is_functional_template__$a,
-    __vue_module_identifier__$a,
+  var VuetifyDisplayForm = __vue_normalize__$2(
+    { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
+    __vue_inject_styles__$2,
+    __vue_script__$2,
+    __vue_scope_id__$2,
+    __vue_is_functional_template__$2,
+    __vue_module_identifier__$2,
     undefined,
     undefined
   );

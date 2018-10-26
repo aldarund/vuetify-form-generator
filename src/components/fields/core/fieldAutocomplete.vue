@@ -1,7 +1,8 @@
 <template>
   <v-autocomplete
-    v-validate="field.required && 'required'"
+    :id="field.name"
     v-model="localValue"
+    v-validate="field.required && 'required'"
     :items="field.choices"
     :combobox="combobox"
     :chips="combobox"
@@ -19,7 +20,6 @@
     :data-vv-scope="scope"
     :prepend-icon="field.prependIcon"
     :append-icon="field.appendIcon"
-    :id="field.name"
     item-text="label"
     item-value="value"
     @blur="onBlur"

@@ -4,36 +4,44 @@
       <label
         v-if="field.label"
         for="field.name"
-        class="v-label">{{ field.label }}</label>
+        class="v-label"
+      >{{ field.label }}</label>
       <vue-signature
-        v-validate="field.validate"
         ref="signature"
-        class="signature"
         v-model="localValue"
+        v-validate="field.validate"
+        class="signature"
         :data-vv-scope="scope"
         :data-vv-as="field.label"
         :data-vv-name="field.name"
-        :sig-option="option"/>
+        :sig-option="option"
+      />
       <div
         v-if="errors.has(veeFieldName)"
-        class="v-text-field__details">
+        class="v-text-field__details"
+      >
         <div class="v-messages error--text">
           <div
             v-for="error in errorMessages"
             :key="error"
-            class="v-messages__wrapper">
+            class="v-messages__wrapper"
+          >
             <div class="v-messages__message">{{ error }}</div>
           </div>
         </div>
       </div>
-      <a @click="typeSignature()" class="switch-signature">Prefer to type your signature? Click here</a>
+      <a
+        class="switch-signature"
+        @click="typeSignature()"
+      >Prefer to type your signature? Click here</a>
       <v-btn @click="clear()">clear</v-btn>
     </div>
     <div v-else-if="mode === 'text'">
       <div class="signature-text">{{ textSignature }}</div>
       <v-text-field
-        v-validate="field.validate"
+        :id="field.name"
         v-model.trim="textSignature"
+        v-validate="field.validate"
         :label="field.label"
         :required="field.required"
         :readonly="field.editable"
@@ -43,12 +51,14 @@
         :data-vv-name="field.name"
         :data-vv-scope="scope"
         :name="field.name"
-        :id="field.name"
         :error="errors.has(veeFieldName)"
         :error-messages="errorMessages"
         @input="onTextSignatureInput"
       />
-      <a @click="drawSignature()" class="switch-signature">Prefer to draw your signature? Click here</a>
+      <a
+        class="switch-signature"
+        @click="drawSignature()"
+      >Prefer to draw your signature? Click here</a>
     </div>
   </div>
 </template>
@@ -78,7 +88,6 @@ export default {
   mixins: [abstractField],
   fieldTypes: ["signature"],
   data() {
-    const ratio =  1.5
     return {
       mode: "graph",
       textSignature: null,

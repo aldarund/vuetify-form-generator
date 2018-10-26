@@ -1,8 +1,8 @@
 <template>
   <v-menu
     ref="menu"
-    :close-on-content-click="false"
     v-model="menu"
+    :close-on-content-click="false"
     :nudge-right="40"
     lazy
     transition="scale-transition"
@@ -11,9 +11,10 @@
     min-width="290px"
   >
     <v-text-field
-      v-validate="field.validate"
       slot="activator"
+      :ref="field.name"
       v-model="dateFormatted"
+      v-validate="field.validate"
       :error="errors.has(veeFieldName)"
       :error-messages="errorMessages"
       :label="field.label"
@@ -23,7 +24,6 @@
       :data-vv-scope="scope"
       :placeholder="field.placeholder"
       :name="field.name"
-      :ref="field.name"
       readonly
       data-vv-validate-on="input"
       @blur="localValue = parseDate(dateFormatted)"
