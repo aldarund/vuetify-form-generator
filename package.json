@@ -108,8 +108,8 @@
     "terser": "^3.10.1",
     "vue-eslint-parser": "^3.2.2",
     "vue-jest": "^3.0.0",
-    "vue-loader": "^15.4.2",
-    "vue-template-compiler": "^2.5.17"
+    "vue-loader": "^13.5.2",
+    "vue-template-compiler": "^2.5.13"
   },
   "config": {
     "commitizen": {

@@ -59,12 +59,13 @@ export default {
     return {}
   },
   created: function() {
-    this.$watch(
-      () => this.$invalid(),
-      value => {
-        this.$emit("update:valid", !value)
-      }
-    )
+    // TODO how to fix
+    // this.$watch(
+    //   () => this.$invalid(),
+    //   value => {
+    //     this.$emit("update:valid", !value)
+    //   }
+    // )
   },
   methods: {
     onBlur: function() {
