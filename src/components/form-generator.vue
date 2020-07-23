@@ -79,6 +79,10 @@ export default {
     onInput: function(value, fieldName) {
       this.$set(this.model, fieldName, value)
       this.$emit("update:model", this.model)
+    },
+    $invalid() {
+      const keys = Object.keys(this.fields)
+      return keys.length === 0 || keys.some(key => this.fields[key].invalid)
     }
   }
 }
