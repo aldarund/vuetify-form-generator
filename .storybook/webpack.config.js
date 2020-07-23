@@ -1,4 +1,5 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 
 // load the default config generator.
 const genDefaultConfig = require('@storybook/vue/dist/server/config/defaults/webpack.config.js');
@@ -16,6 +17,8 @@ module.exports = (baseConfig, env) => {
     test: /\.styl$/,
     loader: 'style-loader!css-loader!stylus-loader'
   });
+
+  config.plugins.push(new VueLoaderPlugin());
 
   return config;
 };
