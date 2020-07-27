@@ -78,7 +78,7 @@
 
 <script>
 import abstractField from "../abstractField"
-import VueSignature from "vue-signature/src/lib/vue-signature"
+import VueSignature from "vue-signature/src/components/vueSignature"
 
 export default {
   inject: ["$validator"],
@@ -100,8 +100,10 @@ export default {
   },
   methods: {
     save() {
-      let sign = this.$refs.signature.save()
-      this.$emit("upd", sign, this.field.name)
+      if (this.$refs.signature) {
+        let sign = this.$refs.signature.save()
+        this.$emit("upd", sign, this.field.name)
+      }
     },
     onTextSignatureInput() {
       this.$emit("upd", this.textSignature, this.field.name)
