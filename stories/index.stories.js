@@ -1,80 +1,67 @@
-import { storiesOf,addDecorator } from "@storybook/vue"
-import {VuetifyFormGenerator} from '../src/index';
+import { storiesOf } from "@storybook/vue"
+import { VuetifyFormGenerator } from "../src/index"
 
-
-// Ensures every story is wrapped in a v-app tag
-addDecorator(() => ({
-  template: "<v-app><story/></v-app>"
-}));
-
-export const  model = {
-  "id": 1,
-  "name": "John Doe",
-  "password": "J0hnD03!x4",
-  "age": 35,
-  "skills": [
-    "Javascript",
-    "VueJS"
-  ],
-  "email": "john.doe@gmail.com",
-  "status": true
+export const model = {
+  id: 1,
+  name: "John Doe",
+  password: "J0hnD03!x4",
+  age: 35,
+  skills: ["Javascript", "VueJS"],
+  email: "john.doe@gmail.com",
+  status: true
 }
 
 export const schema = [
   {
-    label: 'Section1',
+    label: "Section1",
     fields: [
-
       {
-        name:"field1",
-        value:"danleyb2@gmail.com",
+        name: "field1",
+        value: "danleyb2@gmail.com",
         field_id: "email",
-        label: "Email",
+        label: "Email"
       },
       {
         field_id: "text_display",
-        label: "This is a Text Display",
-
+        label: "This is a Text Display"
       },
       {
         field_id: "choice",
         label: "Skills",
         name: "skills",
-        value:"",
-        "multi": true,
-        "required": true,
-        "multiSelect": true,
-        "choices": [
-          { label: "HTML5",value:'l1' },
-          { label: "Javascript",value:'g1' },
-          { label: "CSS3",value:'1h' },
-          { label: "CoffeeScript",value:'1b' },
-          { label: "AngularJS",value:'1c' },
-          { label: "VueJS",value:'1g' }
+        value: "",
+        multi: true,
+        required: true,
+        multiSelect: true,
+        choices: [
+          { label: "HTML5", value: "l1" },
+          { label: "Javascript", value: "g1" },
+          { label: "CSS3", value: "1h" },
+          { label: "CoffeeScript", value: "1b" },
+          { label: "AngularJS", value: "1c" },
+          { label: "VueJS", value: "1g" }
         ]
       }
-
     ]
   },
   {
-    label: 'Section2',
+    label: "Section2",
     fields: [
       {
-        name:"date",
-        value:"",
+        name: "date",
+        value: "",
         field_id: "date",
-        label: "Date",
+        label: "Date"
       },
       {
-        name:"date2",
-        value:"",
+        name: "date2",
+        value: "",
         field_id: "date_of_birth",
-        label: "Date of Birth",
+        label: "Date of Birth"
       }
-  ]
+    ]
   }
 ]
-
 
 // Add more stories here to live develop your components
 storiesOf("VuetifyFormGenerator", module).add("Default", () => ({
@@ -83,7 +70,7 @@ storiesOf("VuetifyFormGenerator", module).add("Default", () => ({
     return {
       schema: schema,
       model: model,
-      invalid:false
+      invalid: false
     }
   },
 
