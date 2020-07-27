@@ -48,6 +48,12 @@ export const schema = [
     label: "Section2",
     fields: [
       {
+        name: "signature",
+        value: "",
+        field_id: "signature",
+        label: "Signature"
+      },
+      {
         name: "date",
         value: "",
         field_id: "date",
