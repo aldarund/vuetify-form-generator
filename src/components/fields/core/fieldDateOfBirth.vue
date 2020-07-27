@@ -10,27 +10,29 @@
     full-width
     min-width="290px"
   >
-    <v-text-field
-      slot="activator"
-      :ref="field.name"
-      v-model="dateFormatted"
-      v-validate="field.validate"
-      :error="errors.has(veeFieldName)"
-      :error-messages="errorMessages"
-      :label="field.label"
-      :required="field.required"
-      :disabled="field.disabled"
-      :data-vv-as="field.label"
-      :data-vv-scope="scope"
-      :placeholder="field.placeholder"
-      :name="field.name"
-      readonly
-      data-vv-validate-on="input"
-      @blur="localValue = parseDate(dateFormatted)"
-      @change="onChange"
-      @focus="onFocus"
-      @input="onInput"
-    />
+    <template v-slot:activator="{ on }">
+      <v-text-field
+        v-on="on"
+        :ref="field.name"
+        v-model="dateFormatted"
+        v-validate="field.validate"
+        :error="errors.has(veeFieldName)"
+        :error-messages="errorMessages"
+        :label="field.label"
+        :required="field.required"
+        :disabled="field.disabled"
+        :data-vv-as="field.label"
+        :data-vv-scope="scope"
+        :placeholder="field.placeholder"
+        :name="field.name"
+        readonly
+        data-vv-validate-on="input"
+        @blur="localValue = parseDate(dateFormatted)"
+        @change="onChange"
+        @focus="onFocus"
+        @input="onInput"
+      />
+    </template>
     <v-date-picker
       ref="picker"
       v-model="localValue"
