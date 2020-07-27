@@ -10,37 +10,39 @@
     max-width="290px"
     min-width="290px"
   >
-    <v-text-field
-      slot="activator"
-      v-model="dateFormatted"
-      :label="field.label"
-      :required="field.required"
-      :disabled="field.disabled"
-      :placeholder="field.placeholder"
-      readonly
-      @blur="localValue = parseDate(dateFormatted)"
-      @change="onChange"
-      @focus="onFocus"
-      @input="onInput"
-    />
-    <v-date-picker 
-      v-model="localValue" 
-      no-title 
-      scrollable 
+    <template v-slot:activator="{ on }">
+      <v-text-field
+        v-on="on"
+        v-model="dateFormatted"
+        :label="field.label"
+        :required="field.required"
+        :disabled="field.disabled"
+        :placeholder="field.placeholder"
+        readonly
+        @blur="localValue = parseDate(dateFormatted)"
+        @change="onChange"
+        @focus="onFocus"
+        @input="onInput"
+      />
+    </template>
+    <v-date-picker
+      v-model="localValue"
+      no-title
+      scrollable
       actions
       @input="setDate($event)"
     >
       <template slot-scope="{ save, cancel }">
         <v-card-actions>
           <v-spacer />
-          <v-btn 
-            flat 
-            color="primary" 
+          <v-btn
+            text
+            color="primary"
             @click="cancel"
           >Cancel</v-btn>
-          <v-btn 
-            flat 
-            color="primary" 
+          <v-btn
+            text
+            color="primary"
             @click="save"
           >OK</v-btn>
         </v-card-actions>
