@@ -1,7 +1,7 @@
 {
   "name": "vuetify-form-generator",
   "description": "Vuetify Form Generator",
-  "version": "0.0.11-development",
+  "version": "0.0.12-development",
   "license": "MIT",
   "main": "dist/vuetify-form-generator.common.js",
   "module": "dist/vuetify-form-generator.esm.js",
