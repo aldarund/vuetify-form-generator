@@ -1,7 +1,7 @@
 {
   "name": "vuetify-form-generator",
   "description": "Vuetify Form Generator",
-  "version": "0.0.12-development",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "dist/vuetify-form-generator.common.js",
   "module": "dist/vuetify-form-generator.esm.js",
@@ -42,14 +42,14 @@
     "test": "npm run lint && jest --verbose --coverage",
     "test:update": "jest --verbose --updateSnapshot",
     "test:watch": "jest --verbose --watchAll --notify",
-    "lint": "eslint --ext .js,.vue . --fix",
+    "lint": "eslint --ext .js,.vue .",
     "lint:fix": "eslint --ext .js,.vue . --fix",
     "prepublishOnly": "npm run build",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
     "signature_pad": "^3.0.0-beta.3",
-    "vee-validate": "^2.1.0-beta.11",
+    "vee-validate": "^3.3.11",
     "vue": "^2.6.11",
     "vue-signature": "^2.4.6",
     "vuetify": "^2.3.6"
@@ -84,6 +84,7 @@
     "eslint-plugin-jest": "^21.26.2",
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-vue": "^5.0.0-beta.3",
+    "eslint-plugin-vuetify": "^1.0.0-beta.7",
     "fibers": "^5.0.0",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.6.0",
