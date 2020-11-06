@@ -1,66 +1,52 @@
 <template>
-  <div>
+  <ValidationProvider
+    v-slot="{ errors }"
+    :vid="field.name"
+    :name="field.label"
+    :rules="field.validate"
+  >
     <div v-if="mode === 'graph'">
-      <label
-        v-if="field.label"
-        for="field.name"
-        class="v-label"
-      >{{ field.label }}</label>
+      <label v-if="field.label" for="field.name" class="v-label">{{field.label }}</label>
       <vue-signature
         ref="signature"
         v-model="localValue"
-        v-validate="field.validate"
         class="signature"
-        :data-vv-scope="scope"
-        :data-vv-as="field.label"
-        :data-vv-name="field.name"
         :sig-option="option"
       />
-      <div
-        v-if="errors.has(veeFieldName)"
-        class="v-text-field__details"
-      >
+      <div v-if="errors.length > 0" class="v-text-field__details">
         <div class="v-messages error--text">
-          <div
-            v-for="error in errorMessages"
-            :key="error"
-            class="v-messages__wrapper"
-          >
-            <div class="v-messages__message">{{ error }}</div>
+          <div v-for="error in errors" :key="error" class="v-messages__wrapper">
+            <div class="v-messages__message">
+              {{ error }}
+            </div>
           </div>
         </div>
       </div>
-      <a
-        class="switch-signature"
-        @click="typeSignature()"
-      >Prefer to type your signature? Click here</a>
-      <v-btn @click="clear()">clear</v-btn>
+      <a class="switch-signature" @click="typeSignature()">Prefer to type your signature? Click here</a>
+      <v-btn @click="clear()">
+        clear
+      </v-btn>
     </div>
     <div v-else-if="mode === 'text'">
-      <div class="signature-text">{{ textSignature }}</div>
+      <div class="signature-text">
+        {{ textSignature }}
+      </div>
       <v-text-field
         :id="field.name"
         v-model.trim="textSignature"
-        v-validate="field.validate"
         :label="field.label"
         :required="field.required"
         :readonly="field.editable"
         :disabled="field.disabled"
         :placeholder="field.placeholder"
-        :data-vv-as="field.label"
-        :data-vv-name="field.name"
-        :data-vv-scope="scope"
         :name="field.name"
-        :error="errors.has(veeFieldName)"
-        :error-messages="errorMessages"
+        :error="errors.length > 0"
+        :error-messages="errors"
         @input="onTextSignatureInput"
       />
-      <a
-        class="switch-signature"
-        @click="drawSignature()"
-      >Prefer to draw your signature? Click here</a>
+      <a class="switch-signature" @click="drawSignature()">Prefer to draw your signature? Click here</a>
     </div>
-  </div>
+  </ValidationProvider>
 </template>
 <style scoped>
 .signature-text {
@@ -79,10 +65,11 @@
 <script>
 import abstractField from "../abstractField"
 import VueSignature from "vue-signature/src/components/vueSignature"
+import { ValidationProvider } from 'vee-validate'
 
 export default {
-  inject: ["$validator"],
   components: {
+    ValidationProvider,
     "vue-signature": VueSignature
   },
   mixins: [abstractField],

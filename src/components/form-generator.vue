@@ -14,7 +14,6 @@
             <v-form-generator-field
               :field="field"
               :value="model[field.name] || field.value"
-              :scope="validationScope"
               @upd="onInput"
             />
           </div>
@@ -40,31 +39,13 @@ export default {
     schema: {
       type: Array,
       required: true
-    },
-    valid: {
-      type: Boolean,
-      default: false
-    },
-    validationScope: {
-      type: String,
-      default: null,
-      required: false
     }
   },
-  inject: {
-    $validator: { default: false }
-  },
-  $_veeValidate: { validator: "new" },
   data() {
     return {}
   },
   created: function() {
-    this.$watch(
-      () => this.$invalid(),
-      value => {
-        this.$emit("update:valid", !value)
-      }
-    )
+
   },
   methods: {
     onBlur: function() {
@@ -79,10 +60,6 @@ export default {
     onInput: function(value, fieldName) {
       this.$set(this.model, fieldName, value)
       this.$emit("update:model", this.model)
-    },
-    $invalid() {
-      const keys = Object.keys(this.fields)
-      return keys.length === 0 || keys.some(key => this.fields[key].invalid)
     }
   }
 }
