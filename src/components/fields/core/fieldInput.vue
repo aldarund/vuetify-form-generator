@@ -1,39 +1,44 @@
 <template>
-  <v-text-field
-    :id="field.name"
-    v-model.trim="localValue"
-    v-validate="field.validate"
-    :label="field.label"
-    :autocomplete="field.autocomplete"
-    :required="field.required"
-    :maxlength="field.maxlength"
-    :readonly="field.editable"
-    :disabled="field.disabled"
-    :placeholder="field.placeholder"
-    :name="field.name"
-    :error="errors.has(veeFieldName)"
-    :error-messages="errorMessages"
-    :multi-line="field.field_id === 'multi_line'"
-    :data-vv-delay="field.delay"
-    :data-vv-as="field.label"
-    :data-vv-name="field.name"
-    :data-vv-scope="scope"
-    :prepend-icon="field.prependIcon"
-    :append-icon="field.appendIcon"
-    :mask="field.mask"
-    :type="field.type"
-    data-vv-validate-on="blur"
-    @blur="onBlur"
-    @change="onChange"
-    @focus="onFocus"
-    @input="onInput"
-  />
+  <ValidationProvider
+    v-slot="{ errors }"
+    :vid="field.name"
+    :debounce="field.delay"
+    :name="field.label"
+    :rules="field.validate"
+  >
+    <v-text-field
+      :id="field.name"
+      v-model.trim="localValue"
+      :label="field.label"
+      :autocomplete="field.autocomplete"
+      :required="field.required"
+      :maxlength="field.maxlength"
+      :readonly="field.editable"
+      :disabled="field.disabled"
+      :placeholder="field.placeholder"
+      :name="field.name"
+      :error="errors.length > 0"
+      :error-messages="errors"
+      :multi-line="field.field_id === 'multi_line'"
+      :prepend-icon="field.prependIcon"
+      :append-icon="field.appendIcon"
+      :mask="field.mask"
+      :type="field.type"
+      @blur="onBlur"
+      @change="onChange"
+      @focus="onFocus"
+      @input="onInput"
+    />
+  </ValidationProvider>
 </template>
 <script>
 import abstractField from "../abstractField"
+import { ValidationProvider } from 'vee-validate'
 
 export default {
-  inject: ["$validator"],
+  components: {
+    ValidationProvider
+  },
   mixins: [abstractField],
   fieldTypes: [
     "single_line",

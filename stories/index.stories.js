@@ -17,9 +17,10 @@ export const schema = [
     fields: [
       {
         name: "field1",
-        value: "danleyb2@gmail.com",
+        value: "",
         field_id: "email",
-        label: "Email"
+        label: "Email",
+        validate: "email"
       },
       {
         field_id: "text_display",
@@ -53,12 +54,12 @@ export const schema = [
         field_id: "signature",
         label: "Signature"
       },
-      {
-        name: "date",
-        value: "",
-        field_id: "date",
-        label: "Date"
-      },
+      // {
+      //   name: "date",
+      //   value: "",
+      //   field_id: "date",
+      //   label: "Date"
+      // },
       {
         name: "date2",
         value: "",

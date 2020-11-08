@@ -8,11 +8,6 @@ export default {
       type: String,
       default: null,
       required: false
-    },
-    scope: {
-      type: String,
-      default: null,
-      required: false
     }
   },
   data() {
@@ -31,29 +26,7 @@ export default {
       }
     }
   },
-  computed: {
-    veeFieldName() {
-      if (this.scope) {
-        return `${this.scope}.${this.field.name}`
-      } else {
-        return this.field.name
-      }
-    },
-    errorMessages() {
-      return this.veeField &&
-        (this.veeField.dirty || this.veeField.validated) &&
-        this.errors.has(this.veeFieldName)
-        ? this.errors.collect(this.veeFieldName)
-        : undefined
-    },
-    veeField() {
-      if (this.scope) {
-        return (this.fields[`$` + this.scope] || {})[this.field.name]
-      } else {
-        return this.fields[this.field.name]
-      }
-    }
-  },
+  computed: {},
   methods: {
     onBlur: function() {
       this.$emit("blur")

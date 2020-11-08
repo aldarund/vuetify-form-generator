@@ -11,27 +11,30 @@
     min-width="290px"
   >
     <template v-slot:activator="{ on }">
-      <v-text-field
-        v-on="on"
-        :ref="field.name"
-        v-model="dateFormatted"
-        v-validate="field.validate"
-        :error="errors.has(veeFieldName)"
-        :error-messages="errorMessages"
-        :label="field.label"
-        :required="field.required"
-        :disabled="field.disabled"
-        :data-vv-as="field.label"
-        :data-vv-scope="scope"
-        :placeholder="field.placeholder"
-        :name="field.name"
-        readonly
-        data-vv-validate-on="input"
-        @blur="localValue = parseDate(dateFormatted)"
-        @change="onChange"
-        @focus="onFocus"
-        @input="onInput"
-      />
+      <ValidationProvider
+        v-slot="{ errors }"
+        :vid="field.name"
+        :name="field.label"
+        :rules="field.validate"
+      >
+        <v-text-field
+          :ref="field.name"
+          v-model="dateFormatted"
+          :error="errors.length > 0"
+          :error-messages="errors"
+          :label="field.label"
+          :required="field.required"
+          :disabled="field.disabled"
+          :placeholder="field.placeholder"
+          :name="field.name"
+          readonly
+          v-on="on"
+          @blur="localValue = parseDate(dateFormatted)"
+          @change="onChange"
+          @focus="onFocus"
+          @input="onInput"
+        />
+      </ValidationProvider>
     </template>
     <v-date-picker
       ref="picker"
@@ -46,10 +49,13 @@
 </template>
 <script>
 import abstractField from "../abstractField"
+import { ValidationProvider } from 'vee-validate'
 
 export default {
+  components: {
+    ValidationProvider
+  },
   mixins: [abstractField],
-  inject: ["$validator"],
   fieldTypes: ["date_of_birth"],
   data() {
     return {
