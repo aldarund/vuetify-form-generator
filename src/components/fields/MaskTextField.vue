@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      internalValue: ""
+      internalValue: this.value || ""
     }
   },
   computed: {
@@ -61,12 +61,25 @@ export default {
       }
     }
   },
+  created: function() {
+    // Create initial mask
+    if (this.maskCharacters) {
+      this.internalValue = masker(
+        this.internalValue,
+        this.maskCharacters,
+        true,
+        tokens
+      )
+    }
+  },
   methods: {
     onInput(newValue) {
       this.$nextTick(() => {
         let internalValue = newValue
         let toEmit = newValue
+
         if (this.maskCharacters) {
+          // Enforce mask and prevent more input
           internalValue = masker(newValue, this.maskCharacters, true, tokens)
           toEmit = masker(newValue, this.maskCharacters, false, tokens)
         }
