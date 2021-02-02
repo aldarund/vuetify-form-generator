@@ -6,7 +6,7 @@
     :name="field.label"
     :rules="field.validate"
   >
-    <v-text-field
+    <MaskTextField
       :id="field.name"
       v-model.trim="localValue"
       :label="field.label"
@@ -33,11 +33,13 @@
 </template>
 <script>
 import abstractField from "../abstractField"
-import { ValidationProvider } from 'vee-validate'
+import { ValidationProvider } from "vee-validate"
+import MaskTextField from "../MaskTextField"
 
 export default {
   components: {
-    ValidationProvider
+    ValidationProvider,
+    MaskTextField
   },
   mixins: [abstractField],
   fieldTypes: [
