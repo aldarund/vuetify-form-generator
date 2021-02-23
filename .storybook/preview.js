@@ -6,10 +6,10 @@ import { ValidationProvider, extend } from 'vee-validate';
 import {
   required,
   email,
-  // min,
-  // max,
-  // numeric,
-  // digits
+  min,
+  max,
+  numeric,
+  digits,
 } from 'vee-validate/dist/rules.umd'
 
 // Import your custom components.
@@ -21,6 +21,10 @@ Vue.use(ModuleLibrary);
 // Install Vue plugins
 extend('required', required)
 extend('email', email)
+extend('digits', digits)
+extend('numeric', numeric)
+extend('max', max)
+extend('min', min)
 
 Vue.component('ValidationProvider', ValidationProvider);
 
