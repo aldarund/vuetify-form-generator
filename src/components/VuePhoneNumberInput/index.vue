@@ -4,8 +4,9 @@
     :class="[{ dark: dark }, size]"
     class="vue-phone-number-input flex"
   >
-    <div v-if="!noCountrySelector"
-class="select-country-container">
+    <div
+v-if="!noCountrySelector" class="select-country-container"
+>
       <CountrySelector
         :id="`${uniqueId}_country_selector`"
         ref="CountrySelector"
@@ -27,8 +28,9 @@ class="select-country-container">
         :theme="theme"
         class="input-country-selector"
       >
-        <slot slot="arrow"
-name="arrow" />
+        <slot
+slot="arrow" name="arrow"
+/>
       </CountrySelector>
     </div>
     <div class="flex-1">
@@ -70,7 +72,6 @@ import {
 import InputTel from "./InputTel"
 import CountrySelector from "./CountrySelector"
 import locales from "./assets/locales"
-
 
 const getShadowColor = color => {
   return "rgb(255 255 255)" // TODO isColorName(color) ? hexToRgba(colorNameToHex(color), 0.7) : hexToRgba(color, 0.7)
@@ -126,6 +127,7 @@ export default {
     return {
       results: {},
       userLocale: this.defaultCountryCode,
+      localValue: this.value,
       lastKeyPressed: null
     }
   },
@@ -153,9 +155,10 @@ export default {
     },
     phoneNumber: {
       get() {
-        return this.value
+        return this.localValue
       },
       set(newPhone) {
+        this.localValue = newPhone
         this.emitValues({
           countryCode: this.countryCode,
           phoneNumber: newPhone
@@ -334,7 +337,6 @@ export default {
         // console.log(asYouType)
         // let fN = this.results['formattedNumber']
         // console.log(`fN: ${fN}`)
-
         this.$emit("input", p)
       })
       // console.groupEnd('emitValues')
