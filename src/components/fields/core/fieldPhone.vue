@@ -13,7 +13,8 @@
         :border-radius="0"
         :error="errors.length > 0"
         error-color="#ff5252"
-        @update="phoneUpdate"
+        default-country-code="US"
+        @input="onInput"
         @phone-number-focused="onFocus"
         @phone-number-blur="onBlur"
       />
@@ -33,11 +34,6 @@ export default {
     VuePhoneNumberInput
   },
   mixins: [abstractField],
-  fieldTypes: ["phone"],
-  methods: {
-    phoneUpdate(data) {
-      this.$emit("upd", data.formattedNumber, this.field.name)
-    }
-  }
+  fieldTypes: ["phone"]
 }
 </script>
