@@ -27,6 +27,7 @@ v-if="!noCountrySelector" class="select-country-container"
         :dark="dark"
         :theme="theme"
         class="input-country-selector"
+        @input="handleInput1"
       >
         <slot
 slot="arrow" name="arrow"
@@ -57,6 +58,7 @@ slot="arrow" name="arrow"
         "
         @focus="$emit('phone-number-focused')"
         @blur="$emit('phone-number-blur')"
+        @input="handleInput2"
       />
     </div>
   </div>
@@ -87,6 +89,7 @@ const browserLocale = () => {
 }
 
 const isCountryAvailable = locale => {
+  if (!locale) return false
   return countriesIso.includes(locale)
 }
 
@@ -97,7 +100,7 @@ export default {
     CountrySelector
   },
   props: {
-    value: { type: String, default: null },
+    value: { type: [String, Number], default: null },
     id: { type: String, default: "MazPhoneNumberInput" },
     color: { type: String, default: "dodgerblue" },
     validColor: { type: String, default: "yellowgreen" },
@@ -127,7 +130,8 @@ export default {
     return {
       results: {},
       userLocale: this.defaultCountryCode,
-      localValue: this.value,
+      countryCode: this.defaultCountryCode,
+      phoneNumber: null,
       lastKeyPressed: null
     }
   },
@@ -143,27 +147,6 @@ export default {
     },
     codesCountries() {
       return countries
-    },
-    countryCode: {
-      get() {
-        return this.userLocale || this.results.countryCode
-      },
-      set(newCountry) {
-        this.setLocale(newCountry)
-        this.$refs.PhoneNumberInput.$el.querySelector("input").focus()
-      }
-    },
-    phoneNumber: {
-      get() {
-        return this.localValue
-      },
-      set(newPhone) {
-        this.localValue = newPhone
-        this.emitValues({
-          countryCode: this.countryCode,
-          phoneNumber: newPhone
-        })
-      }
     },
     shouldChooseCountry() {
       return !this.countryCode && !!this.phoneNumber
@@ -232,35 +215,24 @@ export default {
     defaultCountryCode(newValue, oldValue) {
       if (newValue === oldValue) return
       this.setLocale(newValue)
-    },
-    phoneNumber: {
-      handler(newValue, oldValue) {
-        // console.log('handler')
-        // console.log(`Watch phoneNumber: ${newValue} ${oldValue} `)
-
-        // init component (countryCode & phoneNumber) if phone number is provide
-        if (newValue && newValue !== oldValue) {
-          const phoneNumber = parsePhoneNumberFromString(newValue)
-          if (phoneNumber) {
-            this.emitValues({
-              phoneNumber: phoneNumber.nationalNumber,
-              countryCode: this.countryCode
-                ? this.countryCode
-                : phoneNumber.country
-            })
-          }
-        }
-      },
-      immediate: true
     }
   },
   async mounted() {
     try {
-      if (this.phoneNumber && this.defaultCountryCode)
+      if (this.value) {
+        const phoneNumber = parsePhoneNumberFromString("+" + this.value)
+        console.log("phoneNumber")
+        console.log(phoneNumber)
+        this.countryCode = phoneNumber["country"]
+        this.phoneNumber = phoneNumber["nationalNumber"]
+
         this.emitValues({
-          countryCode: this.defaultCountryCode,
+          countryCode: this.countryCode,
           phoneNumber: this.phoneNumber
         })
+      } else {
+        this.countryCode = this.defaultCountryCode
+      }
 
       if (this.defaultCountryCode && this.fetchCountry) {
         throw new Error(
@@ -273,14 +245,6 @@ export default {
           'MazPhoneNumberInput: If you use a "default-country-code", do not use "no-use-browser-locale" options'
         )
       }
-
-      if (this.defaultCountryCode) return
-
-      this.fetchCountry
-        ? this.fetchCountryCode()
-        : !this.noUseBrowserLocale
-        ? this.setLocale(browserLocale())
-        : null
     } catch (err) {
       throw new Error(err)
     }
@@ -320,45 +284,32 @@ export default {
     emitValues(payload) {
       // console.group(`emitValues`)
       // console.log(payload)
-      const p = payload["phoneNumber"]
-      // debugger
-      // let asYouType = this.getAsYouTypeFormat(payload)
-      // const backSpacePressed = this.lastKeyPressed === 8
+      // // const p = payload["phoneNumber"]
+      //
+      // this.$nextTick(() => {
 
-      this.$nextTick(() => {
-        // const lastCharacOfPhoneNumber = this.phoneNumber ? this.phoneNumber.trim().slice(-1) : false
-        // if (backSpacePressed && lastCharacOfPhoneNumber && (lastCharacOfPhoneNumber.slice(-1) === ')')) {
-        //   asYouType = this.phoneNumber.slice(0, -2)
-        //   payload.phoneNumber = this.phoneNumber.slice(0, -2)
-        // }
-        this.results = this.getParsePhoneNumberFromString(payload)
-        this.$emit("update", this.results)
-        // console.log(this.results)
-        // console.log(asYouType)
-        // let fN = this.results['formattedNumber']
-        // console.log(`fN: ${fN}`)
-        this.$emit("input", p)
-      })
-      // console.groupEnd('emitValues')
+      this.results = this.getParsePhoneNumberFromString(payload)
+      const phoneNumber =
+        this.results["countryCallingCode"] + this.results["nationalNumber"]
+
+      this.$emit("input", phoneNumber)
+
+      // })
+      // console.groupEnd('emitV33444')
     },
     setLocale(locale) {
       const countryAvailable = isCountryAvailable(locale)
-      if (countryAvailable && locale) {
-        this.userLocale = countryAvailable ? locale : null
+      if (countryAvailable) {
         this.emitValues({ countryCode: locale, phoneNumber: this.phoneNumber })
-      } else if (!countryAvailable && locale) {
+      } else {
         window.console.warn(`The locale ${locale} is not available`)
       }
     },
-    async fetchCountryCode() {
-      try {
-        const response = await fetch("https://ip2c.org/s")
-        const responseText = await response.text()
-        const result = (responseText || "").toString()
-        if (result && result[0] === "1") this.setLocale(result.substr(2, 2))
-      } catch (err) {
-        throw new Error(err)
-      }
+    handleInput1(x) {
+      this.emitValues({ countryCode: x, phoneNumber: this.phoneNumber })
+    },
+    handleInput2(x) {
+      this.emitValues({ countryCode: this.countryCode, phoneNumber: x })
     }
   }
 }
