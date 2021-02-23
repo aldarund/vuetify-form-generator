@@ -42,13 +42,6 @@ export default {
     MaskTextField
   },
   mixins: [abstractField],
-  fieldTypes: [
-    "single_line",
-    "multi_line",
-    "unit_field",
-    "ssn",
-    "phone",
-    "email"
-  ]
+  fieldTypes: ["single_line", "multi_line", "unit_field", "ssn", "email"]
 }
 </script>
