@@ -13,7 +13,7 @@
         :border-radius="0"
         :error="errors.length > 0"
         error-color="#ff5252"
-        default-country-code="US"
+        default-country-code="1"
         @input="onInput"
         @phone-number-focused="onFocus"
         @phone-number-blur="onBlur"

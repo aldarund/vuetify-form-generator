@@ -28,15 +28,7 @@
       class="input-tel__input"
       :disabled="disabled"
       :required="required"
-      :class="{ 'no-country-selector': noCountrySelector }"
-      :style="[
-        noCountrySelector ? radiusStyle : radiusRightStyle,
-        inputCaretStyle,
-        inputBorderStyle,
-        inputBoxShadowStyle,
-        inputBgColor,
-        textColor
-      ]"
+      :style="[inputCaretStyle, inputBgColor, textColor]"
       @keydown="keyDown"
       @keyup="keyUp"
       @focus="onFocus"
@@ -67,12 +59,6 @@
         ✕
       </span>
     </button>
-
-    <div v-if="loader"
-class="input-tel__loader">
-      <div :style="[loaderBgColor]"
-class="input-tel__loader__progress-bar" />
-    </div>
   </div>
 </template>
 
@@ -95,9 +81,7 @@ export default {
     readonly: { type: Boolean, default: false },
     valid: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
-    loader: { type: Boolean, default: false },
-    clearable: { type: Boolean, default: false },
-    noCountrySelector: { type: Boolean, default: false }
+    clearable: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -108,7 +92,6 @@ export default {
   computed: {
     inputValue: {
       get() {
-        // console.log('get inputValue: '+this.value)
         return this.value
       },
       set(value) {
@@ -155,7 +138,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "./../../assets/scss/variables";
-@import "style-helpers";
+// @import "style-helpers";
+
+// From Style Helpers
+.text-danger {
+  color: orangered;
+}
+// End from Style Helpers
 
 .input-tel {
   position: relative;
@@ -195,11 +184,6 @@ export default {
 
     &:hover {
       border-color: $primary-color;
-    }
-
-    &:not(.no-country-selector) {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
     }
 
     &::-webkit-input-placeholder {
@@ -490,54 +474,6 @@ export default {
       .input-tel__input {
         padding-top: 16px;
       }
-    }
-  }
-
-  &__loader {
-    bottom: 0;
-    height: 2px;
-    left: 0;
-    width: calc(100% - 8px);
-    position: absolute;
-    overflow: hidden;
-    border-radius: 8px;
-
-    &__progress-bar {
-      background-color: $primary-color;
-      display: block;
-      position: absolute;
-      content: "";
-      left: -200px;
-      width: 200px;
-      height: 2px;
-      animation: loading 2s linear infinite;
-    }
-  }
-
-  @keyframes loading {
-    from {
-      left: -200px;
-      width: 30%;
-    }
-
-    50% {
-      width: 30%;
-    }
-
-    70% {
-      width: 70%;
-    }
-
-    80% {
-      left: 50%;
-    }
-
-    95% {
-      left: 120%;
-    }
-
-    to {
-      left: 100%;
     }
   }
 }

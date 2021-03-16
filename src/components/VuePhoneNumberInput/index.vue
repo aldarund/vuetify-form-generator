@@ -2,11 +2,9 @@
   <div
     :id="id"
     :class="[{ dark: dark }, size]"
-    class="vue-phone-number-input flex"
+    class="vue-phone-number-input d-flex"
   >
-    <div
-v-if="!noCountrySelector" class="select-country-container"
->
+    <div class="select-country-container">
       <CountrySelector
         :id="`${uniqueId}_country_selector`"
         ref="CountrySelector"
@@ -16,12 +14,11 @@ v-if="!noCountrySelector" class="select-country-container"
         :error="shouldChooseCountry"
         :hint="shouldChooseCountry ? t.countrySelectorError : null"
         :disabled="disabled"
-        :valid="isValid && !noValidatorState"
+        :valid="isValid"
         :preferred-countries="preferredCountries"
         :only-countries="onlyCountries"
         :ignored-countries="ignoredCountries"
         :label="t.countrySelectorLabel"
-        :no-flags="noFlags"
         :show-code-on-list="showCodeOnList"
         :size="size"
         :dark="dark"
@@ -29,11 +26,11 @@ v-if="!noCountrySelector" class="select-country-container"
         class="input-country-selector"
         @input="handleInput1"
       >
-        <slot
-slot="arrow" name="arrow"
-/>
+        <slot slot="arrow"
+name="arrow" />
       </CountrySelector>
     </div>
+
     <div class="flex-1">
       <InputTel
         :id="`${uniqueId}_phone_number`"
@@ -45,9 +42,8 @@ slot="arrow" name="arrow"
         :disabled="disabled"
         :size="size"
         :error="error"
-        :valid="isValid && !noValidatorState"
+        :valid="isValid"
         :required="required"
-        :no-country-selector="noCountrySelector"
         v-bind="$attrs"
         :theme="theme"
         class="input-phone-number"
@@ -65,32 +61,21 @@ slot="arrow" name="arrow"
 </template>
 <script>
 import { countries, countriesIso } from "./assets/js/phoneCodeCountries.js"
-import examples from "libphonenumber-js/examples.mobile.json"
-import {
-  parsePhoneNumberFromString,
-  AsYouType,
-  getExampleNumber
-} from "libphonenumber-js"
+
 import InputTel from "./InputTel"
 import CountrySelector from "./CountrySelector"
 import locales from "./assets/locales"
 
-const getShadowColor = color => {
-  return "rgb(255 255 255)" // TODO isColorName(color) ? hexToRgba(colorNameToHex(color), 0.7) : hexToRgba(color, 0.7)
-}
-
-const browserLocale = () => {
-  if (!window) return null
-  const browserLocale =
-    window.navigator.userLanguage || window.navigator.language
-  let locale = browserLocale ? browserLocale.substr(3, 4).toUpperCase() : null
-  if (locale === "") locale = browserLocale.substr(0, 2).toUpperCase()
-  return locale
-}
-
 const isCountryAvailable = locale => {
   if (!locale) return false
   return countriesIso.includes(locale)
+}
+
+function parsePhoneNumberFromString(phoneNumber, countryCode) {
+  return {
+    countryCallingCode: countryCode,
+    nationalNumber: phoneNumber
+  }
 }
 
 export default {
@@ -113,18 +98,12 @@ export default {
     onlyCountries: { type: Array, default: null },
     ignoredCountries: { type: Array, default: Array },
     translations: { type: Object, default: null },
-    noValidatorState: { type: Boolean, default: false },
-    noFlags: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
-    noExample: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     countriesHeight: { type: Number, default: 30 },
     noUseBrowserLocale: { type: Boolean, default: false },
-    fetchCountry: { type: Boolean, default: false },
-    noCountrySelector: { type: Boolean, default: false },
     showCodeOnList: { type: Boolean, default: false },
-    dark: { type: Boolean, default: false },
-    borderRadius: { type: Number, default: 4 }
+    dark: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -151,27 +130,12 @@ export default {
     shouldChooseCountry() {
       return !this.countryCode && !!this.phoneNumber
     },
-    phoneFormatted() {
-      return this.results.formatInternational
-    },
+
     isValid() {
       return this.results.isValid
     },
-    phoneNumberExample() {
-      const phoneNumber = this.countryCode
-        ? getExampleNumber(this.countryCode, examples)
-        : null
-      return phoneNumber ? phoneNumber.formatNational() : null
-    },
-    hasEmptyPhone() {
-      return this.phoneNumber === "" || this.phoneNumber === null
-    },
     hintValue() {
-      return this.noExample || !this.phoneNumberExample
-        ? null
-        : this.hasEmptyPhone || this.isValid
-        ? null
-        : `${this.t.example} ${this.phoneNumberExample}`
+      return null
     },
     theme() {
       return {
@@ -189,25 +153,7 @@ export default {
         borderColor: { borderColor: this.color },
         borderValidColor: { borderColor: this.validColor },
         borderErrorColor: { borderColor: this.errorColor },
-        borderDarkColor: { borderColor: this.darkColor },
-        boxShadowColor: {
-          boxShadow: `0 0 0 0.125rem ${getShadowColor(this.color)}`
-        },
-        boxShadowValid: {
-          boxShadow: `0 0 0 0.125rem ${getShadowColor(this.validColor)}`
-        },
-        boxShadowError: {
-          boxShadow: `0 0 0 0.125rem ${getShadowColor(this.errorColor)}`
-        },
-        borderRadius: { borderRadius: `${this.borderRadius}px` },
-        borderLeftRadius: {
-          borderTopLeftRadius: `${this.borderRadius}px`,
-          borderBottomLeftRadius: `${this.borderRadius}px`
-        },
-        borderRightRadius: {
-          borderTopRightRadius: `${this.borderRadius}px`,
-          borderBottomRightRadius: `${this.borderRadius}px`
-        }
+        borderDarkColor: { borderColor: this.darkColor }
       }
     }
   },
@@ -221,8 +167,7 @@ export default {
     try {
       if (this.value) {
         const phoneNumber = parsePhoneNumberFromString("+" + this.value)
-        console.log("phoneNumber")
-        console.log(phoneNumber)
+
         this.countryCode = phoneNumber["country"]
         this.phoneNumber = phoneNumber["nationalNumber"]
 
@@ -232,12 +177,6 @@ export default {
         })
       } else {
         this.countryCode = this.defaultCountryCode
-      }
-
-      if (this.defaultCountryCode && this.fetchCountry) {
-        throw new Error(
-          'MazPhoneNumberInput: Do not use "fetch-country" and "default-country-code" options in the same time'
-        )
       }
 
       if (this.defaultCountryCode && this.noUseBrowserLocale) {
@@ -250,16 +189,12 @@ export default {
     }
   },
   methods: {
-    getAsYouTypeFormat(payload) {
-      const { countryCode, phoneNumber } = payload
-      const asYouType = new AsYouType(countryCode)
-      return phoneNumber ? asYouType.input(phoneNumber) : null
-    },
     getParsePhoneNumberFromString({ phoneNumber, countryCode }) {
       const parsing =
         phoneNumber && countryCode
           ? parsePhoneNumberFromString(phoneNumber, countryCode)
           : null
+
       return {
         countryCode: countryCode,
         isValid: false,
@@ -268,15 +203,9 @@ export default {
           : null),
         ...(parsing
           ? {
-              countryCallingCode: parsing.countryCallingCode,
               formattedNumber: parsing.number,
               nationalNumber: parsing.nationalNumber,
-              isValid: parsing.isValid(),
-              type: parsing.getType(),
-              formatInternational: parsing.formatInternational(),
-              formatNational: parsing.formatNational(),
-              uri: parsing.getURI(),
-              e164: parsing.format("E.164")
+              isValid: true
             }
           : null)
       }
@@ -289,8 +218,9 @@ export default {
       // this.$nextTick(() => {
 
       this.results = this.getParsePhoneNumberFromString(payload)
+      console.log(this.results)
       const phoneNumber =
-        this.results["countryCallingCode"] + this.results["nationalNumber"]
+        this.results["countryCode"] + this.results["nationalNumber"]
 
       this.$emit("input", phoneNumber)
 
@@ -315,7 +245,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "style-helpers";
+.flex-1 {
+  flex: 1;
+}
 
 .vue-phone-number-input {
   .select-country-container {
