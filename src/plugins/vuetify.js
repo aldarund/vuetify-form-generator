@@ -18,7 +18,14 @@ import Vuetify, {
   VDatePicker,
   VCardActions,
   VSpacer,
-  VSelect
+  VSelect,
+  VList,
+  VSubheader,
+  VListItemGroup,
+  VListItem,
+  VListItemIcon,
+  VListItemContent,
+  VListItemTitle
 } from "vuetify/lib"
 import "vuetify/dist/vuetify.min.css"
 
@@ -42,7 +49,14 @@ Vue.use(Vuetify, {
     VDatePicker,
     VCardActions,
     VSpacer,
-    VSelect
+    VSelect,
+    VList,
+    VSubheader,
+    VListItemGroup,
+    VListItem,
+    VListItemIcon,
+    VListItemContent,
+    VListItemTitle
   }
 })
 
