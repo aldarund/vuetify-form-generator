@@ -17,7 +17,7 @@ export const schema = [
     fields: [
       {
         name: "field1",
-        value: "",
+        value: "danleyb2@gmail.com",
         field_id: "email",
         label: "Email",
         validate: "email"
@@ -25,6 +25,30 @@ export const schema = [
       {
         field_id: "text_display",
         label: "This is a Text Display"
+      },
+      {
+        "mask": "social",
+        "name": "applicant__ssn",
+        "type": "tel",
+        "label": "SSN",
+        "value": '',
+        "field_id": "ssn",
+        "required": true,
+        "validate": "digits:9",
+        "placeholder": ""
+      },
+
+      {
+        "mask": "phone",
+        "name": "contact_information__phone",
+        "type": "tel",
+        "label": "Phone",
+        "value": "",
+        "field_id": "phone",
+        "required": true,
+        "validate": "required|numeric|max:9|min:5",
+        "placeholder": "",
+        "autocomplete": "tel"
       },
       {
         field_id: "choice",
@@ -42,17 +66,6 @@ export const schema = [
           { label: "AngularJS", value: "1c" },
           { label: "VueJS", value: "1g" }
         ]
-      }
-    ]
-  },
-  {
-    label: "Section2",
-    fields: [
-      {
-        name: "signature",
-        value: "",
-        field_id: "signature",
-        label: "Signature"
       },
       // {
       //   name: "date",
@@ -76,15 +89,18 @@ storiesOf("VuetifyFormGenerator", module).add("Default", () => ({
   data() {
     return {
       schema: schema,
-      model: model,
+      model: {},
       invalid: false
     }
   },
 
   template: `
+<div>
+<VuetifyFormGenerator :schema="schema" :model.sync="model"></VuetifyFormGenerator>
 
-<VuetifyFormGenerator :schema="schema" :model="model"></VuetifyFormGenerator>
+<p>{{model}}</p>
 
+</div>
 
 `
 }))
