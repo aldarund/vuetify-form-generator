@@ -21,6 +21,7 @@
       :error-messages="errors"
       :multi-line="field.field_id === 'multi_line'"
       :prepend-icon="field.prependIcon"
+      :prepend-inner-icon="field.prependInnerIcon"
       :append-icon="field.appendIcon"
       :mask="field.mask"
       :type="field.type"
