@@ -13,7 +13,7 @@
       :combobox="combobox"
       :chips="combobox"
       :label="field.label"
-      :browser-autocomplete="field.autocomplete"
+      :autocomplete="field.autocomplete"
       :required="field.required"
       :readonly="field.readonly"
       :disabled="field.disabled"
@@ -33,7 +33,7 @@
 </template>
 <script>
 import abstractField from "../abstractField"
-import { ValidationProvider } from 'vee-validate'
+import { ValidationProvider } from "vee-validate"
 
 export default {
   components: {

@@ -3,22 +3,20 @@
     v-model="menu"
     :close-on-content-click="true"
     :nudge-right="40"
-    lazy
     transition="scale-transition"
     offset-y
-    full-width
     max-width="290px"
     min-width="290px"
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-        v-on="on"
         v-model="dateFormatted"
         :label="field.label"
         :required="field.required"
         :disabled="field.disabled"
         :placeholder="field.placeholder"
         readonly
+        v-on="on"
         @blur="localValue = parseDate(dateFormatted)"
         @change="onChange"
         @focus="onFocus"
@@ -35,16 +33,12 @@
       <template slot-scope="{ save, cancel }">
         <v-card-actions>
           <v-spacer />
-          <v-btn
-            text
-            color="primary"
-            @click="cancel"
-          >Cancel</v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="save"
-          >OK</v-btn>
+          <v-btn text color="primary" @click="cancel">
+            Cancel
+          </v-btn>
+          <v-btn text color="primary" @click="save">
+            OK
+          </v-btn>
         </v-card-actions>
       </template>
     </v-date-picker>
